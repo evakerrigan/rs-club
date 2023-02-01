@@ -1,6 +1,4 @@
 import './App.scss';
-import './assets/styles/reset.scss';
-import './assets/styles/normalize.scss';
 import React from 'react';
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
