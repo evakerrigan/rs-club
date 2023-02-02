@@ -4,9 +4,7 @@ import "./index.scss";
 import App from './App';
 import { HashRouter } from "react-router-dom";
 
-const rootElement = document.getElementById("root") as HTMLElement;
-
-const root = ReactDOM.createRoot(rootElement);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
   <React.StrictMode>
