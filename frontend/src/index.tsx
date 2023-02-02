@@ -11,10 +11,11 @@ if (rootElement instanceof HTMLElement) {
   const root = ReactDOM.createRoot(rootElement);
 
   root.render(
-
-    <HashRouter>
-      <App />
-    </HashRouter>
+    <React.StrictMode>
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </React.StrictMode>
 
   );
 
