@@ -1,15 +1,18 @@
 import './App.scss';
 import React from 'react';
-import { Header } from './components/Header/Header';
+import { Layout} from 'antd';
+import { Header} from './components/Header/Header';
+import { Main } from './components/Main/Main';
 import { Footer } from './components/Footer/Footer';
 
 function App() {
+
   return (
-    <div className='App'>
-      <Header />
-      <div className='App-content'>RS Club</div>
-      <Footer />
-    </div>
+    <Layout className='App'>
+     <Header />
+     <Main />
+     <Footer />
+   </Layout>
   );
 }
 
