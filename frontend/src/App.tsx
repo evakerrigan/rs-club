@@ -1,15 +1,17 @@
 import './App.scss';
 import React from 'react';
+import { Layout } from 'antd';
 import { Header } from './components/Header/Header';
+import { Main } from './components/Main/Main';
 import { Footer } from './components/Footer/Footer';
 
 function App() {
   return (
-    <div className='App'>
+    <Layout className='App'>
       <Header />
-      <div className='App-content'>RS Club</div>
+      <Main />
       <Footer />
-    </div>
+    </Layout>
   );
 }
 
