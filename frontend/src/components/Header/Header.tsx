@@ -11,13 +11,11 @@ export function Header() {
       <Row align='middle'>
         <Col span={8}>
         <nav className='nav'>
-          <Space >
-          <NavLink to='/'>Home</NavLink>
+
           <NavLink to='/messages'>Messages</NavLink>
-          </Space>
-        </nav>
+                  </nav>
         </Col>
-        <Col span={8}>RS CLUB</Col>
+        <Col span={8}><NavLink to='/'>RS CLUB</NavLink></Col>
         <Col span={8}>
           <Space>
             <span> Hello, {userName}! </span>

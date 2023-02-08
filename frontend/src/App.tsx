@@ -4,9 +4,10 @@ import {  Route, Routes } from 'react-router-dom';
 import { Header } from './components/header/Header';
 import { Footer } from './components/footer/Footer';
 import { Messages } from './components/pages/messages/Messages';
-import { Map } from './components/pages/map/Map';
+
 import { NotFound } from './components/pages/notFound/NotFound';
 import { Profile } from './components/pages/profile/Profile';
+import { Main } from './components/Main/Main';
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <Header />
       <main className='main'>
        <Routes>
-        <Route path='/' element={<Map/>} />
+        <Route path='/' element={<Main/>} />
         <Route path='/messages' element={<Messages/>} />
         <Route path='/profile' element={<Profile/>} />
         <Route path='/*' element={<NotFound/>} />
