@@ -1,9 +1,8 @@
+import { useState } from 'react';
+import { MyMap } from '../MyMap';
 import './Main.scss';
 
 export function Main() {
-  return (
-    <main className='main'>
-      <div>main</div>
-    </main>
-  );
+  const [isAuthenticated] = useState<boolean>(true);
+  return isAuthenticated ? <MyMap /> : <main className='main bg' />;
 }
