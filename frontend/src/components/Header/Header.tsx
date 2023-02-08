@@ -6,7 +6,7 @@ const userName = 'User';
 
 export function Header() {
   return (
-    <header className='footer'>
+    <header className='header'>
       <Row align='middle'>
         <Col span={8}> </Col>
         <Col span={8}>RS CLUB</Col>
