@@ -5,4 +5,13 @@
   background-color: #282c34;
   min-height: 100vh;
   color: white;
+
+  .main {
+    flex: 1 1 auto;
+    height: 100%;
+    background-image: url(./assets/images/map.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
