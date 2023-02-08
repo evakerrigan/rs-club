@@ -6,12 +6,6 @@ import { AuthGuard } from '@nestjs/passport';
 export class AuthController {
   constructor(private jwtService: JwtService) {}
 
-  @Get()
-  @UseGuards(AuthGuard('github'))
-  async login() {
-    //
-  }
-
   @Get('callback')
   @UseGuards(AuthGuard('github'))
   async authCallback(@Req() req) {
