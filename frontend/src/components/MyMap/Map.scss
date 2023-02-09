@@ -1,0 +1,28 @@
+.map {
+  width: 100vw;
+  height: calc(90vh - 50px);
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+}
+
+.map-container {
+  position: relative;
+}
+
+.map-filters {
+  left: 0;
+  position: fixed;
+  top: 50px;
+
+  /* cделал темный прозрачный дизайн */
+  background-color: hsl(224, 12%, 20%);
+  filter: opacity(0.8);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+  z-index: 2;
+  max-width: 340px;
+  width: 100%;
+  height: calc(100vh - 15%);
+}
