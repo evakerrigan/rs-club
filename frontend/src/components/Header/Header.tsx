@@ -10,17 +10,18 @@ export function Header() {
     <header className='header'>
       <Row align='middle'>
         <Col span={8}>
-        <nav className='nav'>
-
-          <NavLink to='/messages'>Messages</NavLink>
-                  </nav>
+          <nav className='nav'>
+            <NavLink to='/messages'>Messages</NavLink>
+          </nav>
         </Col>
-        <Col span={8}><NavLink to='/'>RS CLUB</NavLink></Col>
+        <Col span={8}>
+          <NavLink to='/'>RS CLUB</NavLink>
+        </Col>
         <Col span={8}>
           <Space>
             <span> Hello, {userName}! </span>
             <NavLink to='/profile'>
-            <Avatar className='avatar' size={42} icon={<UserOutlined />} />
+              <Avatar className='avatar' size={42} icon={<UserOutlined />} />
             </NavLink>
           </Space>
         </Col>
