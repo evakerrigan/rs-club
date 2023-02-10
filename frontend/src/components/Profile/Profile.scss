@@ -1,0 +1,13 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form {
+  color: aliceblue;
+
+  min-width: 30%;
+  .ant-form-item-label label {
+    color: aliceblue;
+  }
+}
