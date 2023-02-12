@@ -1,22 +1,48 @@
 import './Profile.scss';
-import { Button, Form, Input, Select } from 'antd';
-// import { IUser } from '../../types/Types';
-// import { Form } from "react-router-dom";
+import { Button, Checkbox, Col, Form, Input, Select } from 'antd';
+import { IUser } from '../../types/Types';
 
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
+  wrapperCol: { span: 50 },
 };
 
-// const onFinish = (values:IUser) => {
-//   console.log(values);
-// };
+const onFinish = (values: IUser) => {
+  // eslint-disable-next-line no-console
+  console.log(values);
+};
 
-/* eslint-disable no-template-curly-in-string */
 const validateMessages = {
+  /* eslint-disable no-template-curly-in-string */
   required: '${label} is required!',
-  min: '${label} must be between ${min}',
+  string: {
+    min: '${label} must be at least ${min} characters',
+  },
 };
+
+const interestsList = [
+  'in my city',
+  'looking for friends',
+  'likes to move',
+  'open to communication',
+  'use a couple of beers',
+  'can show the city',
+  'can show the office',
+  'looking for employees',
+  'looking for a job',
+  'looking for a relocation',
+];
+
+function CreateCheckbox(list: string[] = []) {
+  return (
+    <>
+      {list.map((item) => (
+        <Col key={item.split(' ').join('-')}>
+          <Checkbox value={item}>{item}</Checkbox>
+        </Col>
+      ))}
+    </>
+  );
+}
 
 export function Profile() {
   return (
@@ -26,7 +52,7 @@ export function Profile() {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...layout}
         name='nest-messages'
-        // onFinish={onFinish}
+        onFinish={onFinish}
         validateMessages={validateMessages}
       >
         <Form.Item
@@ -62,7 +88,7 @@ export function Profile() {
           hasFeedback
         >
           <Select
-            mode='tags'
+            mode='multiple'
             placeholder='Please select technologies'
             style={{ width: '100%' }}
             options={[
@@ -83,7 +109,7 @@ export function Profile() {
           hasFeedback
         >
           <Select
-            mode='tags'
+            mode='multiple'
             placeholder='Please select cources'
             style={{ width: '100%' }}
             options={[
@@ -97,7 +123,17 @@ export function Profile() {
           />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
+        <Form.Item
+          name={['user', 'interests']}
+          label='Interests'
+          rules={[{ required: true }]}
+          hasFeedback
+        >
+          <Checkbox.Group className='checkbox' style={{ width: '100%' }}>
+            {CreateCheckbox(interestsList)}
+          </Checkbox.Group>
+        </Form.Item>
+        <Form.Item wrapperCol={{ ...layout.wrapperCol }}>
           <Button type='primary' htmlType='submit'>
             Submit
           </Button>
