@@ -5,11 +5,13 @@ import {
   Body,
   Patch,
   Param,
+  Query,
   Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { QueryParamDto } from './dto/searh-stack.dto';
 
 @Controller('users')
 export class UsersController {
@@ -21,7 +23,10 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
+  getAll(@Query() filterDto: QueryParamDto) {
+    if (Object.keys(filterDto).length) {
+      return this.usersService.findByFilter(filterDto);
+    }
     return this.usersService.findAll();
   }
 
@@ -29,17 +34,22 @@ export class UsersController {
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
+
   @Get('/profile/:id')
   getProfile(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+
+  @Patch('/profile/:id')
+  updateProfile(
+    @Param('id') id: string,
+    @Body() updateProfileDto: UpdateProfileDto,
+  ) {
+    return this.usersService.update(id, updateProfileDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete('/profile/:id')
+  removeProfile(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
 }

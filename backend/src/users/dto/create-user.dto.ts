@@ -1,14 +1,13 @@
 import { MaxLength, MinLength } from 'class-validator';
+import { User } from '../entities/user.entity';
 
-export class CreateUserDto {
+export class CreateUserDto extends User {
   @MinLength(3, {
     message: 'Name is too short',
   })
   @MaxLength(50, {
     message: 'Name is too long',
   })
-  name: string;
-
-  image?: string;
-  role: 'user';
+  githubName: string;
+  profilePicture?: string;
 }
