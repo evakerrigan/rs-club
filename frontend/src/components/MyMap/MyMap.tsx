@@ -1,4 +1,5 @@
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
+import { FiltersRender } from '../Filters/Filters';
 import './Map.scss';
 
 export function MyMap() {
@@ -16,8 +17,8 @@ export function MyMap() {
 
   return (
     <div className='map-container'>
-      <div className='map-filters'>Filters</div>
-      <YMaps>
+             <FiltersRender/>
+           <YMaps>
         <Map
           defaultState={{
             center: [55.751574, 37.573856],

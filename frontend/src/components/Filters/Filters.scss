@@ -1,0 +1,24 @@
+.filters {
+  left: 0;
+  position: fixed;
+  margin: 2vh 5px 2vh 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  background-color: hsl(224, 12%, 20%);
+  filter: opacity(0.8);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  z-index: 2;
+  max-width: 340px;
+  width: 100%;
+  height: 76vh;
+  // div {
+  //   width: 100%;
+  // }
+}
+
+.checked {
+  background-color: red;
+}
