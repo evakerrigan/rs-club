@@ -1,0 +1,40 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form {
+  min-width: 30%;
+  width: 40%;
+  padding: 5px;
+
+  .ant-form-item-label label {
+    color: white;
+  }
+  div {
+    display: block;
+  }
+  .css-dev-only-do-not-override-ixblex {
+    text-align: center;
+  }
+  .ant-select-selection-overflow {
+    display: inline;
+  }
+  button {
+    margin-top: 20px;
+    width: 200px;
+  }
+  .checkbox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    label {
+      display: flex;
+      color: white;
+      text-align: start;
+      width: 200px;
+    }
+  }
+}
