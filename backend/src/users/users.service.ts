@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
-import { QueryParamDto } from './dto/searh-stack.dto';
+import { QueryParamDto } from './dto/searh-param.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { User, UserDocument } from './users.schema';
 
@@ -42,22 +42,23 @@ export class UsersService {
   }
 
   async findByFilter(filterDto: QueryParamDto): Promise<UserDocument[]> {
-    const { stack, courses } = filterDto;
+    const { stack, courses, pref } = filterDto;
+    const query: {
+      [key: string]: object;
+    } = {};
 
-    if (stack && courses) {
-      return await this.UserModel.find({
-        technology: { $all: stack.split(',') },
-        courses: { $all: courses.split(',') },
-      });
-    } else if (stack) {
-      return await this.UserModel.find({
-        technology: { $all: stack.split(',') },
-      });
-    } else {
-      return await this.UserModel.find({
-        courses: { $all: courses.split(',') },
-      });
+    if (pref) {
+      pref
+        .split(',')
+        .map((value) => ({ value, isActive: true }))
+        .forEach((el) => {
+          query.preferences = { $elemMatch: el };
+        });
     }
+
+    if (stack) query.technology = { $all: stack.split(',') };
+    if (courses) query.courses = { $all: courses.split(',') };
+    return await this.UserModel.find(query);
   }
 
   /* ПОДКЛЮЧИТЬ GUARD */

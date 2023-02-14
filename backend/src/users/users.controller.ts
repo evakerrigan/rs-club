@@ -11,7 +11,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { QueryParamDto } from './dto/searh-stack.dto';
+import { QueryParamDto } from './dto/searh-param.dto';
 
 @Controller('users')
 export class UsersController {

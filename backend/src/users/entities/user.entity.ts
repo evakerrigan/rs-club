@@ -1,4 +1,4 @@
-class Preference {
+export class Preference {
   value: string;
   category: string;
   isActive: boolean;
