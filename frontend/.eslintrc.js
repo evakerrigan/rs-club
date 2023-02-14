@@ -21,7 +21,7 @@ module.exports = {
     'import/extensions': 0,
     'import/prefer-default-export': 0,
     'import/no-unresolved': 'error',
-    // 'import/no-extraneous-dependencies': ['error', { peerDependencies: true }],
+    'import/no-extraneous-dependencies': 0,
   },
   parserOptions: {
     ecmaVersion: 'latest',

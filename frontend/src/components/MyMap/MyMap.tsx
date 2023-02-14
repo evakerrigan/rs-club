@@ -15,7 +15,7 @@ export function MyMap() {
   ];
 
   return (
-    <div className='main map-container'>
+    <div className='map-container'>
       <div className='map-filters'>Filters</div>
       <YMaps>
         <Map
