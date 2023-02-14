@@ -9,18 +9,25 @@ const userName = 'User';
 export function Header() {
 
   const instance = axios.create({
-    baseURL: 'http://localhost:8000',
+    baseURL: 'http://localhost:8000/',
     withCredentials: true,
   })
 
-  const onClick = () => axios.get('auth/callback',
-    // {
-    //   headers: {
-    //     'Access-Control-Allow-Origin': '*',
-    //     'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    //   }
-    // }
+  const onClickReg = () => instance.get('auth/callback',
+    {
+      // headers: {
+      //   'Access-Control-Allow-Origin': '*',
+      //   'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      //   'Access-Control-Allow-Credentials': 'true',
+      // }
+    }
   )
+
+  // const onClickReg = () => {
+  // eslint-disable-next-line no-restricted-globals
+  //   location.href = 'http://localhost:8000/auth/callback';
+  // }
+
   return (
     <header className='header'>
       <Row align='middle'>
@@ -33,7 +40,7 @@ export function Header() {
           <NavLink to='/'>RS CLUB</NavLink>
         </Col>
         <Col span={8}>
-          <Button onClick={onClick}>Reg Github</Button>
+          <Button onClick={onClickReg}>Reg Github</Button>&nbsp;&nbsp;&nbsp;
           <Space>
             <span> Hello, {userName}! </span>
             <NavLink to='/profile'>
