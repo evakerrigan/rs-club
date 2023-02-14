@@ -5,6 +5,8 @@ import cors from 'cors';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors();
+
   // const app = await NestFactory.create(AppModule, {
   //   cors: {
   //     origin: 'http://localhost:3000',
@@ -14,21 +16,25 @@ async function bootstrap() {
   //   },
   // });
 
-  const allowedDomains = ['http://127.0.0.1:3000'];
+  // app.enableCors({
+  //   origin: true,
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  //   credentials: true,
+  // });
 
-  app.enableCors({
-    origin: allowedDomains,
-    credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  });
+  // const allowedDomains = ['http://localhost:3000'];
+
+  // app.enableCors({
+  //   origin: allowedDomains,
+  //   credentials: true,
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  // });
 
   // app.enableCors({
   //   origin: ['http://localhost:3000'],
   //   methods: ['POST', 'PUT', 'DELETE', 'GET'],
   // credentials: true,
   // });
-
-  // app.enableCors();
 
   // app.use(
   //   cors({
@@ -46,12 +52,20 @@ async function bootstrap() {
   //   origin: true,
   // });
 
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
-    next();
-  });
+  // app.use((req, res, next) => {
+  //   res.header('Access-Control-Allow-Origin', '*');
+  //   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  //   res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+  //   next();
+  // });
+
+  // app.enableCors({
+  //   origin: ['http://localhost:3000'],
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  //   preflightContinue: false,
+  //   optionsSuccessStatus: 204,
+  //   credentials: true,
+  // });
 
   await app.listen(8000);
 

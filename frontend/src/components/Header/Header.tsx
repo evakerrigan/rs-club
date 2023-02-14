@@ -10,10 +10,10 @@ export function Header() {
 
   const instance = axios.create({
     baseURL: 'http://localhost:8000/',
-    withCredentials: true,
+    // withCredentials: true,
   })
 
-  const onClickReg = () => instance.get('auth/callback',
+  const onClickReg = () => instance.get('auth',
     {
       // headers: {
       //   'Access-Control-Allow-Origin': '*',
