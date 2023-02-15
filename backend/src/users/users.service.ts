@@ -48,12 +48,11 @@ export class UsersService {
     } = {};
 
     if (pref) {
-      pref
-        .split(',')
-        .map((value) => ({ value, isActive: true }))
-        .forEach((el) => {
-          query.preferences = { $elemMatch: el };
-        });
+      query.$and = pref.split(',').map((value) => ({
+        preferences: {
+          $elemMatch: { value, isActive: true },
+        },
+      }));
     }
 
     if (stack) query.technology = { $all: stack.split(',') };
