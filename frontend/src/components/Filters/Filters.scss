@@ -5,6 +5,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  align-items: center;
 
   background-color: hsl(224, 12%, 20%);
   filter: opacity(0.8);
@@ -14,11 +15,27 @@
   max-width: 340px;
   width: 100%;
   height: 76vh;
-  // div {
-  //   width: 100%;
-  // }
+
+  label {
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+  }
+  .ant-row {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    border-radius: 5px;
+  }
+  .ant-checkbox-inner {
+    display: none;
+  }
 }
 
 .checked {
-  background-color: red;
+  background-color: rgb(53, 119, 163);
 }
