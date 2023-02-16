@@ -1,32 +1,16 @@
 import { UserOutlined } from '@ant-design/icons';
 import { Row, Col, Avatar, Space, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 import './Header.scss';
 
 const userName = 'User';
 
-export function Header() {
-
-  const instance = axios.create({
-    baseURL: 'http://localhost:8000/',
-    // withCredentials: true,
-  })
-
-  const onClickReg = () => instance.get('auth',
-    {
-      // headers: {
-      //   'Access-Control-Allow-Origin': '*',
-      //   'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      //   'Access-Control-Allow-Credentials': 'true',
-      // }
-    }
-  )
-
-  // const onClickReg = () => {
+const onClickReg = () => {
   // eslint-disable-next-line no-restricted-globals
-  //   location.href = 'http://localhost:8000/auth/callback';
-  // }
+  location.href = 'http://localhost:8000/auth';
+}
+
+export function Header() {
 
   return (
     <header className='header'>
@@ -49,6 +33,6 @@ export function Header() {
           </Space>
         </Col>
       </Row>
-    </header>
+    </header >
   );
 }

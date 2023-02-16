@@ -1,11 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import cors from 'cors';
+// import cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
+
+  // app.enableCors({
+  //   origin: ['http://localhost:3000'],
+  //   methods: ['POST', 'PUT', 'DELETE', 'GET'],
+  //   credentials: true,
+  // });
 
   // const app = await NestFactory.create(AppModule, {
   //   cors: {
@@ -28,12 +34,6 @@ async function bootstrap() {
   //   origin: allowedDomains,
   //   credentials: true,
   //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  // });
-
-  // app.enableCors({
-  //   origin: ['http://localhost:3000'],
-  //   methods: ['POST', 'PUT', 'DELETE', 'GET'],
-  // credentials: true,
   // });
 
   // app.use(
