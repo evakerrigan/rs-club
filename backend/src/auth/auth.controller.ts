@@ -28,9 +28,12 @@ export class AuthController {
     console.log('rsAccessToken =', rsAccessToken);
 
     res.cookie('rsAccessToken', rsAccessToken, {
-      expires: new Date(new Date().getTime() + 60 * 1000),
+      expires: new Date(new Date().getTime() + 300 * 1000),
       sameSite: 'strict',
       httpOnly: true,
+    });
+    res.cookie('userName', userName, {
+      expires: new Date(new Date().getTime() + 300 * 1000),
     });
 
     res.redirect(302, 'http://localhost:3000');
