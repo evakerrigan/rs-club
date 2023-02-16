@@ -23,19 +23,20 @@
     justify-content: center;
     width: 200px;
   }
-  .ant-row {
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px;
-    border-radius: 5px;
-  }
+
   .ant-checkbox-inner {
     display: none;
   }
 }
 
+.checkbox-item {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px;
+  border-radius: 5px;
+}
 .checked {
   background-color: rgb(53, 119, 163);
 }

@@ -1,11 +1,6 @@
-import { Checkbox, Row } from 'antd';
-// import { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { CheckboxValueType } from 'antd/es/checkbox/Group';
-// import { ReactEventHandler } from 'react';
+import { Checkbox, } from 'antd';
+import {  CheckboxValueType } from 'antd/es/checkbox/Group';
 import './Filters.scss'
-
-// import {useRef} from 'react';
-
 
 const interestsList = [
   'in my city',
@@ -20,26 +15,26 @@ const interestsList = [
   'looking for a relocation',
 ];
 
-  const onChange = (checkedValues: CheckboxValueType[]) => {
+  const onChange = (checkedValues: CheckboxValueType[] ) => {
     console.log('checked = ', checkedValues);
   };
 
-  const changeStyle = (e: Event): void=> ((e.currentTarget?.parentNode.parentNode.parentNode.classList.toggle('checked')));
+  const changeStyle = (event: React.MouseEvent<HTMLElement>): void=> {
+    event.currentTarget.closest('.checkbox-item')?.classList.toggle('checked');
+     };
 
 function CreateCheckbox(list: string[] = []) {
 
   return (
     <>
-      {list.map((item) => (
-          <Row key={item}>
-          {/* <Row key={item} onClick={handleClick}> */}
-          <Checkbox  value={item} onClick={changeStyle} >{item}</Checkbox>
-          </Row>
+         {list.map((item) => (
+          <div className='checkbox-item' key={item} >
+               <Checkbox  value={item} onClick={changeStyle}>{item}</Checkbox>
+          </div>
       ))}
     </>
   );
 }
-
 
 export function FiltersRender() {
   return (
