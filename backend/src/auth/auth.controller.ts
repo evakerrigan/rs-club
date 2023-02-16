@@ -16,15 +16,16 @@ export class AuthController {
   @UseGuards(AuthGuard('github'))
   async authCallback(@Req() req, @Response() res) {
     const user = req.user;
+    const userId = user.id;
+    const userName = user.username;
+    // const avatarUrl = user.user._json.avatar_url;
     const payload = { sub: user.id, username: user.username };
-    // console.log('user', user);
-    console.log('user._json.avatar_url', user._json.avatar_url);
-    // console.log('username =', user.username);
-    // console.log('userid =', user.id);
-    // console.log('payload =', payload);
-    // console.log('accessToken =', this.jwtService.sign(payload));
-
     const rsAccessToken = this.jwtService.sign(payload);
+    // console.log('user', user);
+    console.log('userId =', userId);
+    console.log('userName =', userName);
+    // console.log('avatarUrl =', avatarUrl);
+    console.log('rsAccessToken =', rsAccessToken);
 
     res.cookie('rsAccessToken', rsAccessToken, {
       expires: new Date(new Date().getTime() + 60 * 1000),
@@ -33,12 +34,5 @@ export class AuthController {
     });
 
     res.redirect(302, 'http://localhost:3000');
-
-    // return res.send({
-    //   accessToken: this.jwtService.sign(payload),
-    //   payload: payload,
-    // });
-
-    // return { accessToken: this.jwtService.sign(payload), payload: payload };
   }
 }
