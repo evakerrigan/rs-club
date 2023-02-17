@@ -1,6 +1,7 @@
 import './Profile.scss';
 import { Button, Checkbox, Col, Form, Input, Select } from 'antd';
-import { IUser } from '../../types/Types';
+import { IUser, IOption } from '../../types/Types';
+import { courcesList, interestsList, technologiesList } from '../Constants/Constants';
 
 const layout = {
   wrapperCol: { span: 50 },
@@ -19,25 +20,12 @@ const validateMessages = {
   },
 };
 
-const interestsList = [
-  'in my city',
-  'looking for friends',
-  'likes to move',
-  'open to communication',
-  'use a couple of beers',
-  'can show the city',
-  'can show the office',
-  'looking for employees',
-  'looking for a job',
-  'looking for a relocation',
-];
-
-function CreateCheckbox(list: string[] = []) {
+function CreateCheckbox(list: IOption[] = []) {
   return (
     <>
       {list.map((item) => (
-        <Col key={item.split(' ').join('-')}>
-          <Checkbox value={item}>{item}</Checkbox>
+        <Col key={item.key}>
+          <Checkbox value={item.value}>{item.value}</Checkbox>
         </Col>
       ))}
     </>
@@ -51,7 +39,7 @@ export function Profile() {
         className='form'
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...layout}
-        name='nest-messages'
+        name='profile'
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
@@ -91,15 +79,7 @@ export function Profile() {
             mode='multiple'
             placeholder='Please select technologies'
             style={{ width: '100%' }}
-            options={[
-              { value: 'js', label: 'JavaScript' },
-              { value: 'phyton', label: 'Phyton' },
-              { value: 'ts', label: 'TypeScript' },
-              { value: 'node', label: 'Node.js' },
-              { value: 'angular', label: 'Angular' },
-              { value: 'react', label: 'React' },
-              { value: 'vue', label: 'Vue.js' },
-            ]}
+            options={technologiesList}
           />
         </Form.Item>
         <Form.Item
@@ -112,17 +92,9 @@ export function Profile() {
             mode='multiple'
             placeholder='Please select cources'
             style={{ width: '100%' }}
-            options={[
-              { value: 'js/fe', label: 'JavaScript/Front-end Course' },
-              { value: 'ios', label: 'iOS Cource' },
-              { value: 'android', label: 'Android Cource' },
-              { value: 'node', label: 'Node.js in AWS' },
-              { value: 'angular', label: 'Angular Course' },
-              { value: 'react', label: 'React Course' },
-            ]}
+            options={courcesList}
           />
         </Form.Item>
-
         <Form.Item
           name={['user', 'interests']}
           label='Interests'
