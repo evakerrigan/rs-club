@@ -1,14 +1,14 @@
 export const interestsList = [
-  { key: '_in-my-city', value: 'in my city' },
-  { key: '_looking-for-friends', value: 'looking for friends' },
-  { key: '_likes-to-move', value: 'likes to move' },
-  { key: '_open-to-communication', value: 'open to communicate' },
-  { key: '_use-a-couple-of-beers', value: 'use a couple of beers' },
-  { key: '_can-show-the-city', value: 'can show the city' },
-  { key: '_can-show-the-office', value: 'can show the office' },
-  { key: '_looking-for-employees', value: 'looking for employees' },
-  { key: '_looking-for-a-job', value: 'looking for a job' },
-  { key: '_looking-for-a-relocation', value: 'looking for a relocation' },
+  { key: '_city', value: 'in my city' },
+  { key: '_friends', value: 'looking for friends' },
+  { key: '_action', value: 'likes to move' },
+  { key: '_night', value: 'open to communicate' },
+  { key: '_beer', value: 'use a couple of beers' },
+  { key: '_local', value: 'can show the city' },
+  { key: '_office', value: 'can show the office' },
+  { key: '_employ', value: 'looking for employees' },
+  { key: '_job', value: 'looking for a job' },
+  { key: '_relocate', value: 'looking for a relocation' },
 ];
 
 export const technologiesList = [
