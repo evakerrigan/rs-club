@@ -5,3 +5,8 @@ export interface IUser {
   cources: string[];
   technologies: string[];
 }
+
+export interface IOption {
+  value: string;
+  key: string;
+}
