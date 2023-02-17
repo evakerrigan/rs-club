@@ -1,4 +1,4 @@
-import { Checkbox, Form, } from 'antd';
+import { Button, Checkbox, Form, } from 'antd';
 import {  CheckboxValueType } from 'antd/es/checkbox/Group';
 // import { generatePath } from 'react-router-dom';
 
@@ -20,6 +20,10 @@ const onChange = (checkedValues: CheckboxValueType[] ) => {
     // http://localhost:8000/api/users?pref=${params}
   };
 
+  const onFinish = (values: string[][]=[[],[],[]]) => {
+      console.log(values);
+  };
+
 const ChangeStyle = (event: React.MouseEvent<HTMLElement>): void=> {
     event.currentTarget.closest('.checkbox-item')?.classList.toggle('checked');
     };
@@ -39,7 +43,9 @@ function CreateCheckbox(list: IOption[]=[]) {
 
 export function FiltersRender() {
   return (
-    <Form className='filters' >
+    <Form className='filters'
+    onFinish={onFinish}
+    >
       <Form.Item name='interests'>
     <Checkbox.Group className='filter-item' onChange={onChange}>
       <h2 className='filter-title'>Interests</h2>
@@ -58,6 +64,9 @@ export function FiltersRender() {
         {CreateCheckbox(courcesList)}
     </Checkbox.Group>
     </Form.Item>
+    <Button type='primary' htmlType='submit'>
+            Confirm
+          </Button>
       </Form>
   );
 }

@@ -22,7 +22,9 @@
     align-items: center;
     justify-content: center;
   }
-
+  .ant-form-item {
+    margin-bottom: 5px;
+  }
   .ant-checkbox-inner {
     display: none;
   }
