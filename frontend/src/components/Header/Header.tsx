@@ -1,11 +1,17 @@
 import { UserOutlined } from '@ant-design/icons';
-import { Row, Col, Avatar, Space } from 'antd';
+import { Row, Col, Avatar, Space, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
 import './Header.scss';
 
 const userName = 'User';
 
+const onClickReg = () => {
+  // eslint-disable-next-line no-restricted-globals
+  location.href = 'http://localhost:8000/auth';
+}
+
 export function Header() {
+
   return (
     <header className='header'>
       <Row align='middle'>
@@ -18,6 +24,7 @@ export function Header() {
           <NavLink to='/'>RS CLUB</NavLink>
         </Col>
         <Col span={8}>
+          <Button onClick={onClickReg}>Reg Github</Button>&nbsp;&nbsp;&nbsp;
           <Space>
             <span> Hello, {userName}! </span>
             <NavLink to='/profile'>
@@ -26,6 +33,6 @@ export function Header() {
           </Space>
         </Col>
       </Row>
-    </header>
+    </header >
   );
 }

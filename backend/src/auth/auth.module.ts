@@ -9,7 +9,7 @@ import { GithubStrategy, JwtStrategy } from './auth.strategy';
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => {
         return {
-          signOptions: { expiresIn: '10h' },
+          signOptions: { expiresIn: '24h' },
           secret: configService.get<string>('JWT_SECRET'),
         };
       },

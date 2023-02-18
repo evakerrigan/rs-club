@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Response, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -6,11 +6,33 @@ import { AuthGuard } from '@nestjs/passport';
 export class AuthController {
   constructor(private jwtService: JwtService) {}
 
+  @Get()
+  @UseGuards(AuthGuard('github'))
+  async login() {
+    //
+  }
+
   @Get('callback')
   @UseGuards(AuthGuard('github'))
-  async authCallback(@Req() req) {
+  async authCallback(@Req() req, @Response() res) {
     const user = req.user;
+    const userId = user.id;
+    const userName = user.username;
+    // const avatarUrl = user.user._json.avatar_url;
     const payload = { sub: user.id, username: user.username };
-    return { accessToken: this.jwtService.sign(payload) };
+    const rsAccessToken = this.jwtService.sign(payload);
+    // console.log('user', user);
+    console.log('userId =', userId);
+    console.log('userName =', userName);
+    // console.log('avatarUrl =', avatarUrl);
+    console.log('rsAccessToken =', rsAccessToken);
+
+    res.cookie('rsAccessToken', rsAccessToken, {
+      expires: new Date(new Date().getTime() + 60 * 1000),
+      sameSite: 'strict',
+      httpOnly: true,
+    });
+
+    res.redirect(302, 'http://localhost:3000');
   }
 }
