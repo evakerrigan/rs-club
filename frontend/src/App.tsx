@@ -9,15 +9,16 @@ import { Profile } from './components/Profile/Profile';
 import { Main } from './components/Main/Main';
 
 function App() {
+
   return (
     <section className='App'>
       <Header />
-      <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path='/messages' element={<Messages />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/*' element={<NotFound />} />
-      </Routes>
+       <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/messages' element={<Messages />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/*' element={<NotFound />} />
+        </Routes>
       <Footer />
     </section>
   );
