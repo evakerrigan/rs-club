@@ -1,35 +1,36 @@
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import {  IUser } from '../../types/Types';
+import { IUser } from '../../types/Types';
 import { FiltersRender } from '../Filters/Filters';
 import './Map.scss';
 
 export function MyMap() {
-  const [users, setUsers] = useState([]);
-
+  const [users, setUsers] = useState<IUser[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const stack = searchParams.get('stack');
   const pref = searchParams.get('pref');
   const cource = searchParams.get('cources');
 
-  const getCoordinates = () =>
-    users.map((item: IUser) => item.location).filter((item) => item?.length);
   const resetParamsAndLocalStorage = () => {
-    localStorage.clear()
-    setSearchParams({})
-  }
+    localStorage.clear();
+    setSearchParams({});
+  };
   const onFinish = () => {
-    const createPrefParams = JSON.parse(localStorage.getItem('pref') || '[]');
-    const createStackParams = JSON.parse(localStorage.getItem('stack') || '[]');
-    const createCourcesParams = JSON.parse(localStorage.getItem('cources') || '[]');
+    const createPrefParams: [] = JSON.parse(localStorage.getItem('pref') || '[]');
+    const createStackParams: [] = JSON.parse(localStorage.getItem('stack') || '[]');
+    const createCourcesParams: [] = JSON.parse(localStorage.getItem('cources') || '[]');
     const query = {
       stack: createStackParams,
       pref: createPrefParams,
       cources: createCourcesParams,
     };
-    setSearchParams(Object.fromEntries(Object.entries(query).filter((e) => e[1])));
+    const filter = Object.entries(query)
+      .filter((e) => e[1].length > 0)
+      .map(([key, value]) => [key, value.join(',')]);
+
+    setSearchParams(Object.fromEntries(filter));
   };
 
   useEffect(() => {
@@ -68,10 +69,11 @@ export function MyMap() {
               groupByCoordinates: false,
             }}
           >
-            {getCoordinates().map((coordinates, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <Placemark key={index} geometry={coordinates} />
-            ))}
+            {users &&
+              users.map((user: IUser) => {
+                if (!user.location?.length) return null;
+                return <Placemark key={user.githubName} geometry={user.location ?? []} />;
+              })}
           </Clusterer>
         </Map>
       </YMaps>

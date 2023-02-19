@@ -2,7 +2,7 @@ export const interestsList = [
   { key: '_city', value: 'in my city' },
   { key: '_friends', value: 'looking for friends' },
   { key: '_action', value: 'likes to move' },
-  { key: '_night', value: 'open to communicate' },
+  { key: '_chat', value: 'open to communicate' },
   { key: '_beer', value: 'use a couple of beers' },
   { key: '_local', value: 'can show the city' },
   { key: '_office', value: 'can show the office' },
