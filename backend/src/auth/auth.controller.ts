@@ -31,6 +31,9 @@ export class AuthController {
     // console.log('avatarUrl =', avatarUrl);
     console.log('rsAccessToken =', rsAccessToken);
 
+    // тут должна быть функция записи в бд как минимум 4 параметров
+    // userId, userName, avatarUrl, rsAccessToken
+
     res.cookie('rsAccessToken', rsAccessToken, {
       expires: new Date(new Date().getTime() + 30 * 1000),
       sameSite: 'strict',

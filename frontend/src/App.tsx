@@ -32,10 +32,7 @@ function App() {
     console.log('isAuthenticated = ', isAuthenticated);
 
     // вот тут должен пойти запрос в бд, поиск по пользователям,
-    // у кого такой токен, если токен найден, то вернуть имя пользователя
-
-
-
+    // у кого такой токен, если токен найден, то вернуть userName
 
   } else {
     isAuthenticated = false;
@@ -44,7 +41,8 @@ function App() {
 
   return (
     <section className='App'>
-      <Header />
+
+      <Header isAuthenticated={isAuthenticated} />
 
       {
         isAuthenticated === true ?

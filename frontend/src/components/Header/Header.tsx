@@ -13,9 +13,13 @@ const onClickReg = () => {
   }
 }
 
-export function Header() {
+type Props = {
+  isAuthenticated: boolean;
+}
 
-  const isAuthenticated = false;
+export function Header({isAuthenticated}:Props) {
+
+  console.log('header isAuthenticated =', isAuthenticated);
 
   return (
     <header className='header'>
