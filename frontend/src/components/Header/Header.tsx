@@ -6,8 +6,11 @@ import './Header.scss';
 const userName = 'User';
 
 const onClickReg = () => {
-  // eslint-disable-next-line no-restricted-globals
-  location.href = 'http://localhost:8000/api/auth';
+  if (process.env.NODE_ENV === 'development') {
+    window.location.href = 'http://localhost:8000/api/auth/';
+  } else {
+    window.location.href = '/api/auth/'
+  }
 }
 
 export function Header() {
