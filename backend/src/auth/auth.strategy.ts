@@ -4,6 +4,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy } from 'passport-github';
 import { ExtractJwt, Strategy as PassportJwtStrategy } from 'passport-jwt';
 
+//запрос на гитхаб, авторизация на гитхабе и возвращение данных с гитхаба
 @Injectable()
 export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
   constructor(configService: ConfigService) {
@@ -20,17 +21,22 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
   }
 }
 
+//проверка токена локальная, авторизован ли пользователь
 @Injectable()
 export class JwtStrategy extends PassportStrategy(PassportJwtStrategy) {
   constructor(configService: ConfigService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), //извлечение токена из запроса
+      ignoreExpiration: false, //отклонять запросы если токен истек по сроку
       secretOrKey: configService.get<string>('JWT_SECRET'),
     });
   }
 
   async validate(payload: any) {
+    console.log(
+      'auth.STRATEGY.ts файл - username: payload.username',
+      payload.username,
+    );
     return { id: payload.sub, username: payload.username };
   }
 }
