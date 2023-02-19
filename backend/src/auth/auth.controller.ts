@@ -34,7 +34,7 @@ export class AuthController {
     res.cookie('rsAccessToken', rsAccessToken, {
       expires: new Date(new Date().getTime() + 30 * 1000),
       sameSite: 'strict',
-      httpOnly: true,
+      httpOnly: false,
     });
     res.cookie('userName', userName, {
       expires: new Date(new Date().getTime() + 30 * 1000),

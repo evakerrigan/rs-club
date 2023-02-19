@@ -15,6 +15,8 @@ const onClickReg = () => {
 
 export function Header() {
 
+  const isAuthenticated = false;
+
   return (
     <header className='header'>
       <Row align='middle'>
@@ -27,13 +29,16 @@ export function Header() {
           <NavLink to='/'>RS CLUB</NavLink>
         </Col>
         <Col span={8}>
-          <Button onClick={onClickReg}>Reg Github</Button>&nbsp;&nbsp;&nbsp;
-          <Space>
-            <span> Hello, {userName}! </span>
-            <NavLink to='/profile'>
-              <Avatar className='avatar' size={42} icon={<UserOutlined />} />
-            </NavLink>
-          </Space>
+          {
+            isAuthenticated === false ?
+              <Button onClick={onClickReg}>Reg Github</Button>
+              : <Space>
+                <span> Hello, {userName}! </span>
+                <NavLink to='/profile'>
+                  <Avatar className='avatar' size={42} icon={<UserOutlined />} />
+                </NavLink>
+              </Space>
+          }
         </Col>
       </Row>
     </header >
