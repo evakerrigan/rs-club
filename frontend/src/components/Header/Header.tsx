@@ -7,7 +7,7 @@ const userName = 'User';
 
 const onClickReg = () => {
   // eslint-disable-next-line no-restricted-globals
-  location.href = 'http://localhost:8000/auth';
+  location.href = 'http://localhost:8000/api/auth';
 }
 
 export function Header() {
