@@ -18,9 +18,9 @@ export function MyMap() {
     setSearchParams({});
   };
   const onFinish = () => {
-    const createPrefParams: [] = JSON.parse(localStorage.getItem('pref') || '[]');
-    const createStackParams: [] = JSON.parse(localStorage.getItem('stack') || '[]');
-    const createCourcesParams: [] = JSON.parse(localStorage.getItem('cources') || '[]');
+    const createPrefParams: string[] = JSON.parse(localStorage.getItem('pref') || '[]');
+    const createStackParams: string[] = JSON.parse(localStorage.getItem('stack') || '[]');
+    const createCourcesParams: string[] = JSON.parse(localStorage.getItem('cources') || '[]');
     const query = {
       stack: createStackParams,
       pref: createPrefParams,
