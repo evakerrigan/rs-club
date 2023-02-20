@@ -6,11 +6,20 @@ import './Header.scss';
 const userName = 'User';
 
 const onClickReg = () => {
-  // eslint-disable-next-line no-restricted-globals
-  location.href = 'http://localhost:8000/auth';
+  if (process.env.NODE_ENV === 'development') {
+    window.location.href = 'http://localhost:8000/api/auth/';
+  } else {
+    window.location.href = '/api/auth/'
+  }
 }
 
-export function Header() {
+type Props = {
+  isAuthenticated: boolean;
+}
+
+export function Header({isAuthenticated}:Props) {
+
+  console.log('header isAuthenticated =', isAuthenticated);
 
   return (
     <header className='header'>
@@ -24,13 +33,16 @@ export function Header() {
           <NavLink to='/'>RS CLUB</NavLink>
         </Col>
         <Col span={8}>
-          <Button onClick={onClickReg}>Reg Github</Button>&nbsp;&nbsp;&nbsp;
-          <Space>
-            <span> Hello, {userName}! </span>
-            <NavLink to='/profile'>
-              <Avatar className='avatar' size={42} icon={<UserOutlined />} />
-            </NavLink>
-          </Space>
+          {
+            isAuthenticated === false ?
+              <Button onClick={onClickReg}>Reg Github</Button>
+              : <Space>
+                <span> Hello, {userName}! </span>
+                <NavLink to='/profile'>
+                  <Avatar className='avatar' size={42} icon={<UserOutlined />} />
+                </NavLink>
+              </Space>
+          }
         </Col>
       </Row>
     </header >

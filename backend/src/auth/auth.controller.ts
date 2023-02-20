@@ -1,10 +1,14 @@
 import { Controller, Get, Req, Response, UseGuards } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private configService: ConfigService,
+  ) {}
 
   @Get()
   @UseGuards(AuthGuard('github'))
@@ -27,10 +31,16 @@ export class AuthController {
     // console.log('avatarUrl =', avatarUrl);
     console.log('rsAccessToken =', rsAccessToken);
 
+    // тут должна быть функция записи в бд как минимум 4 параметров
+    // userId, userName, avatarUrl, rsAccessToken
+
     res.cookie('rsAccessToken', rsAccessToken, {
-      expires: new Date(new Date().getTime() + 60 * 1000),
+      expires: new Date(new Date().getTime() + 30 * 1000),
       sameSite: 'strict',
-      httpOnly: true,
+      httpOnly: false,
+    });
+    res.cookie('userName', userName, {
+      expires: new Date(new Date().getTime() + 30 * 1000),
     });
 
     res.redirect(302, 'http://localhost:3000');

@@ -1,0 +1,132 @@
+.messages {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  // max-width: 700px;
+  // align-items: center;
+  // height: 100%;
+  // background-color: rgb(124, 115, 115);
+
+  .chats {
+    // background-color: rgb(215, 215, 134);
+    // width: 20%;
+    display: flex;
+    // flex: 1 0 auto;
+    height: 80vh;
+    flex-direction: column;
+    // align-items: start;
+    // justify-content: start;
+    border: 1px solid white;
+    border-radius: 10px 0 0 10px;
+
+    .chat-avatar {
+      width: 100%;
+      // height: 100%;
+      // flex: 1 1 auto;
+
+      // background-color: aliceblue;
+      img {
+        width: 60px;
+        margin: 10px 20px;
+        border-radius: 10px;
+      }
+    }
+  }
+  .messages-container {
+    width: 70%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .message-history {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      transform: rotate(-180deg);
+      direction: rtl;
+      border: 1px solid white;
+      border-left: none;
+      border-right: none;
+    }
+  }
+}
+
+.message-item {
+  max-width: max-content;
+  min-height: 40px;
+  border: 2px solid black;
+  border-radius: 10px;
+  transform: rotate(180deg);
+  .message-avatar {
+    width: 60px;
+    padding: 5px;
+
+    img {
+      width: 50px;
+      border-radius: 50%;
+    }
+  }
+  .message-content {
+    // border-left: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1 1 auto;
+
+    .message-text {
+      margin: 0;
+      padding: 5px;
+      width: 100%;
+      text-align: end;
+      flex: 1 1 auto;
+    }
+  }
+  .message-text {
+    width: 100%;
+    padding: 5px;
+    font-size: 12px;
+  }
+  .message-date {
+    margin: 0;
+    padding: 5px;
+    text-align: start;
+    display: flex;
+    justify-content: start;
+    padding-right: 10px;
+    width: 100%;
+    font-size: 8px;
+  }
+}
+
+.output-message {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 5px 5px 5px auto;
+}
+.input-message {
+  display: flex;
+  flex-direction: row;
+  margin: 5px auto 5px 5px;
+}
+
+.input-form {
+  padding: 5px;
+  border: 1px solid white;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 10px 0;
+
+  form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  div {
+    margin: 0;
+    width: 100%;
+  }
+  button {
+    margin: 0 10px 0 5px;
+  }
+}
