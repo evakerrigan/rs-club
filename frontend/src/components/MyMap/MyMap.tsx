@@ -1,7 +1,8 @@
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
 import { useEffect, useState } from 'react';
+// import { Button } from 'antd';
 import { useSearchParams } from 'react-router-dom';
-import {  IUser } from '../../types/Types';
+// import { IUser } from '../../types/Types';
 import { FiltersRender } from '../Filters/Filters';
 import './Map.scss';
 
@@ -14,12 +15,13 @@ export function MyMap() {
   const pref = searchParams.get('pref');
   const cource = searchParams.get('cources');
 
-  const getCoordinates = () =>
-    users.map((item: IUser) => item.location).filter((item) => item?.length);
+  // const getCoordinates = () =>
+  //   users.map((item: IUser) => item.location).filter((item) => item?.length);
+
   const resetParamsAndLocalStorage = () => {
-    localStorage.clear()
-    setSearchParams({})
-  }
+    localStorage.clear();
+    setSearchParams({});
+  };
   const onFinish = () => {
     const createPrefParams = JSON.parse(localStorage.getItem('pref') || '[]');
     const createStackParams = JSON.parse(localStorage.getItem('stack') || '[]');
@@ -60,6 +62,7 @@ export function MyMap() {
             center: [55.751574, 37.573856],
             zoom: 5,
           }}
+          modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
           className='map'
         >
           <Clusterer
@@ -68,10 +71,41 @@ export function MyMap() {
               groupByCoordinates: false,
             }}
           >
-            {getCoordinates().map((coordinates, index) => (
-              // eslint-disable-next-line react/no-array-index-key
+            {/* {getCoordinates().map((coordinates, index) => (
               <Placemark key={index} geometry={coordinates} />
-            ))}
+            ))} */}
+            <Placemark
+              geometry={[55.847973, 37.692542]}
+              options={{
+                // Options. You must specify this type of layout.
+                iconLayout: 'default#image',
+                // Custom image for the placemark icon.
+                iconImageHref: 'https://game-assets.swgoh.gg/tex.charui_admiralraddus.png',
+                // The size of the placemark.
+                iconImageSize: [50, 50],
+                // The offset of the upper left corner of the icon relative
+                // to its "tail" (the anchor point).
+                iconImageOffset: [-3, -42],
+                // iconShape: {
+                //   type: 'Circle',
+                //   coordinates: [0, 0],
+                //   radius: 20,
+                // },
+              }}
+              properties={{
+                hintContent: '<b> Я появляюсь при наведении на метку </b>',
+                // создаём пустой элемент с заданными размерами
+                balloonContent: `<div class="balloon-container">
+                <h2>Balloon</h2>
+                <img alt="avatar" src="https://game-assets.swgoh.gg/tex.charui_admiralraddus.png" />
+                <a href="https://t.me/...">start a conversation</a>
+                </div>`,
+              }}
+              // onClick={() => {
+              //   // ставим в очередь промисов, чтобы сработало после отрисовки балуна
+              //   console.log('object :>> ');
+              // }}
+            />
           </Clusterer>
         </Map>
       </YMaps>
