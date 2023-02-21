@@ -21,6 +21,8 @@ export class User {
   @Prop()
   lastName: string;
   @Prop()
+  rsAccessToken: string;
+  @Prop()
   profilePicture?: string;
   @Prop()
   address?: string;

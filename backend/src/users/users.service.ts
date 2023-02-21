@@ -36,7 +36,10 @@ export class UsersService {
       count,
     };
   }
-
+  async findByAccessToken(rsAccessToken: string) {
+    return await this.UserModel.findOne({ rsAccessToken });
+  }
+  
   async getAllUsers() {
     return await this.UserModel.find({ status: 'active' });
   }

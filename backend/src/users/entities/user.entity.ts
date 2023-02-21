@@ -18,4 +18,5 @@ export class User {
   preferences: Preference[];
   technology: string[];
   courses: string[];
+  rsAccessToken: string;
 }
