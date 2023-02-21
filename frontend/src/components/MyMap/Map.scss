@@ -14,17 +14,36 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 5px;
 
   h2 {
     margin: 5px;
   }
   div {
     text-align: center;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    filter: opacity(0.8);
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    user-select: none;
+    touch-action: manipulation;
+    line-height: 1.5714285714285714;
+    background-color: #1677ff;
+    color: #fff;
+
     a {
+      display: block;
+      color: #fff;
+      padding: 5px;
       width: 100%;
-      color: rgb(0, 0, 0);
-      margin: 0 auto;
       text-decoration: none;
     }
   }
 }
+// ymaps .ymaps-2-1-79-balloon__layout,
+// ymaps .ymaps-2-1-79-balloon__content {
+//   background-color: hsl(224, 12%, 20%);
+// }

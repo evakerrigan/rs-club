@@ -1,10 +1,37 @@
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
 import { useEffect, useState } from 'react';
-// import { Button } from 'antd';
 import { useSearchParams } from 'react-router-dom';
-// import { IUser } from '../../types/Types';
 import { FiltersRender } from '../Filters/Filters';
 import './Map.scss';
+import { userInfoFromBD } from '../../types/Types';
+
+function CreatePlacemarks(userList: userInfoFromBD[] = []) {
+  return (
+    <>
+      {userList.map((userInfo) => (
+        <Placemark
+          key={userInfo.name}
+          geometry={userInfo.coords}
+          options={{
+            iconLayout: 'default#image',
+            iconImageHref: userInfo.avatar,
+            iconImageSize: [50, 50],
+            iconImageOffset: [-15, -15],
+          }}
+          properties={{
+            hintContent: `<b> ${userInfo.name} </b>`,
+            // создаём пустой элемент с заданными размерами
+            balloonContent: `<div class="balloon-container">
+          <h2>${userInfo.name}</h2>
+          <img alt="avatar" src=${userInfo.avatar} />
+          <div><a href=${userInfo.telegramm} target="_blank">start a conversation</a></div>
+          </div>`,
+          }}
+        />
+      ))}
+    </>
+  );
+}
 
 export function MyMap() {
   const [users, setUsers] = useState([]);
@@ -53,6 +80,27 @@ export function MyMap() {
     getUsers();
   }, [cource, pref, stack]);
 
+  const userBase = [
+    {
+      name: 'User',
+      avatar: 'https://game-assets.swgoh.gg/tex.charui_admiralraddus.png',
+      coords: [55.847, 37.692],
+      telegramm: 'https://t.me/friendswgoh',
+    },
+    {
+      name: 'huyser',
+      avatar: 'https://game-assets.swgoh.gg/tex.charui_trooperclone_arc.png',
+      coords: [54.847973, 33.692542],
+      telegramm: 'https://t.me/friendswgoh',
+    },
+    {
+      name: 'loser',
+      avatar: 'https://game-assets.swgoh.gg/tex.charui_chewbacca_ot.png',
+      coords: [50.847973, 30.692542],
+      telegramm: 'https://t.me/friendswgoh',
+    },
+  ];
+
   return (
     <div className='map-container'>
       <FiltersRender onFinish={onFinish} resetParamsAndLocalStorage={resetParamsAndLocalStorage} />
@@ -74,38 +122,7 @@ export function MyMap() {
             {/* {getCoordinates().map((coordinates, index) => (
               <Placemark key={index} geometry={coordinates} />
             ))} */}
-            <Placemark
-              geometry={[55.847973, 37.692542]}
-              options={{
-                // Options. You must specify this type of layout.
-                iconLayout: 'default#image',
-                // Custom image for the placemark icon.
-                iconImageHref: 'https://game-assets.swgoh.gg/tex.charui_admiralraddus.png',
-                // The size of the placemark.
-                iconImageSize: [50, 50],
-                // The offset of the upper left corner of the icon relative
-                // to its "tail" (the anchor point).
-                iconImageOffset: [-3, -42],
-                // iconShape: {
-                //   type: 'Circle',
-                //   coordinates: [0, 0],
-                //   radius: 20,
-                // },
-              }}
-              properties={{
-                hintContent: '<b> Я появляюсь при наведении на метку </b>',
-                // создаём пустой элемент с заданными размерами
-                balloonContent: `<div class="balloon-container">
-                <h2>Balloon</h2>
-                <img alt="avatar" src="https://game-assets.swgoh.gg/tex.charui_admiralraddus.png" />
-                <a href="https://t.me/...">start a conversation</a>
-                </div>`,
-              }}
-              // onClick={() => {
-              //   // ставим в очередь промисов, чтобы сработало после отрисовки балуна
-              //   console.log('object :>> ');
-              // }}
-            />
+            {CreatePlacemarks(userBase)}
           </Clusterer>
         </Map>
       </YMaps>

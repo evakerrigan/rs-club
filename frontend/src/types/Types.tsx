@@ -1,11 +1,10 @@
-/* export interface IUser {
+export interface userInfoFromBD {
   name: string;
-  gender: 'male' | 'female';
-  city: string;
-  cources: string[];
-  technologies: string[];
+  avatar: string;
+  coords: number[];
+  telegramm: string;
 }
- */
+
 export interface IOption {
   value: string;
   key: string;
