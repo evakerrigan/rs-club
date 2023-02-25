@@ -29,3 +29,5 @@ export const courcesList = [
   { key: '_angular', value: 'Angular Course' },
   { key: '_react', value: 'React Course' },
 ];
+
+export const BASE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api' : '/api';

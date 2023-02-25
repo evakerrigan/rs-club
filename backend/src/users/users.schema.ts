@@ -17,9 +17,7 @@ export class User {
   @Prop()
   githubName: string;
   @Prop()
-  firstName: string;
-  @Prop()
-  lastName: string;
+  name: string;
   @Prop()
   profilePicture?: string;
   @Prop()
@@ -38,8 +36,9 @@ export class User {
     default: 'active',
   })
   status: 'active' | 'inactive';
-  @Prop({ type: () => [Preference] })
-  preferences: Preference[];
+  @Prop({ default: [] })
+  //@Prop({ type: () => [Preference] })
+  preferences: [string];
   @Prop()
   gender: 'male' | 'female';
   @Prop({ default: [] })

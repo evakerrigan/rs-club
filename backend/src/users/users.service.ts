@@ -22,7 +22,9 @@ export class UsersService {
     );
   }
   async create(createUserDto: CreateUserDto): Promise<User> {
-    return new this.UserModel(createUserDto).save();
+    return await (
+      await new this.UserModel(createUserDto).save()
+    ).id;
   }
 
   async findAll(): Promise<{
@@ -37,6 +39,10 @@ export class UsersService {
     };
   }
 
+  async findByCond(cond: Partial<User>) {
+    return await this.UserModel.findOne(cond);
+  }
+
   async getAllUsers() {
     return await this.UserModel.find({ status: 'active' });
   }
@@ -47,14 +53,15 @@ export class UsersService {
       [key: string]: object;
     } = {};
 
+    /*  
     if (pref) {
       query.$and = pref.split(',').map((value) => ({
         preferences: {
           $elemMatch: { value, isActive: true },
         },
       }));
-    }
-
+    } */
+    if (pref) query.pref = { $all: pref.split(',') };
     if (stack) query.technology = { $all: stack.split(',') };
     if (courses) query.courses = { $all: courses.split(',') };
     return await this.UserModel.find(query);

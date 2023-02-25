@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { IUser } from '../../types/Types';
 import { FiltersRender } from '../Filters/Filters';
+import { BASE_URL } from '../Constants/Constants';
 import './Map.scss';
 
 export function MyMap() {
@@ -36,13 +37,13 @@ export function MyMap() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const BASE_URL = 'http://localhost:8000/api/users?';
+        const USERS_URL = `${BASE_URL}/users?`;
         const query: string[] = [];
         if (stack) query.push(`stack=${stack}`);
         if (pref) query.push(`pref=${pref}`);
         if (cource) query.push(`cources=${pref}`);
 
-        const response = await fetch(BASE_URL + query.join('&'));
+        const response = await fetch(USERS_URL + query.join('&'));
         const data = await response.json();
         setUsers(data.items);
       } catch (error) {

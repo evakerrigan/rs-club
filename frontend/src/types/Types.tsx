@@ -1,11 +1,10 @@
-/* export interface IUser {
+export interface IUserProfile {
   name: string;
   gender: 'male' | 'female';
   city: string;
   cources: string[];
   technologies: string[];
 }
- */
 export interface IOption {
   value: string;
   key: string;
@@ -36,4 +35,9 @@ export interface IUser {
   preferences: Preference[];
   technology: string[];
   courses: string[];
+}
+
+export interface IAuthorizationResponse {
+  statusCode: number;
+  message: string;
 }
