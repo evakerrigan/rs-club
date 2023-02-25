@@ -5,8 +5,7 @@ export class Preference {
 }
 export class User {
   githubName: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   gender: 'male' | 'female';
   profilePicture?: string;
   address?: string;
@@ -15,8 +14,8 @@ export class User {
   signupDate: Date;
   lastActivity: Date;
   status: 'active' | 'inactive';
-  preferences: Preference[];
+  preferences: string[];
   technology: string[];
   courses: string[];
-  rsAccessToken: string;
+  _id: string;
 }
