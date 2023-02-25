@@ -1,15 +1,10 @@
 import './Profile.scss';
 import { Button, Checkbox, Col, Form, Input, Select } from 'antd';
-import { IUser, IOption } from '../../types/Types';
-import { courcesList, interestsList, technologiesList } from '../Constants/Constants';
+import { IUser, IOption, IUserProfile } from '../../types/Types';
+import { BASE_URL, courcesList, interestsList, technologiesList } from '../Constants/Constants';
 
 const layout = {
   wrapperCol: { span: 50 },
-};
-
-const onFinish = (values: IUser) => {
-  // eslint-disable-next-line no-console
-  console.log(values);
 };
 
 const validateMessages = {
@@ -25,14 +20,42 @@ function CreateCheckbox(list: IOption[] = []) {
     <>
       {list.map((item) => (
         <Col key={item.key}>
-          <Checkbox value={item.value}>{item.value}</Checkbox>
+          <Checkbox value={item.key}>{item.value}</Checkbox>
         </Col>
       ))}
     </>
   );
 }
 
-export function Profile() {
+export function Profile({ id }: { id: string }) {
+  const onFinish = (values: { user: IUserProfile }) => {
+    const { user } = values;
+
+    /* здесь нужно декодировать адресс в координаты [number, number] */
+
+    const data: Partial<IUser> = {
+      courses: user.cources,
+      technology: user.technologies,
+      gender: user.gender,
+      // location: ,
+      address: user.city,
+    };
+    
+    /*
+    const updateUserData = async(data: Partial<IUser> )=>{
+      try {
+    fetch(`${BASE_URL}/users/profile/${id}`,{
+      method: 'PATCH',
+      body: JSON.stringify(data)
+    })
+      } catch (error) {
+        console.error('User update was not successful!')
+      }
+    }
+    updateUserData(data)
+    */
+  };
+
   return (
     <main className='main profile'>
       <Form
