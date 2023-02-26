@@ -22,7 +22,7 @@ function CreatePlacemarks({ githubName, location, profilePicture, telegramLink }
         balloonContent: `<div class="balloon-container">
           <h2>${githubName}</h2>
           <img alt="avatar" src=${profilePicture} />
-          <div><a href=${telegramLink} target="_blank">start a conversation</a></div>
+          <div><a href= "https://t.me/${telegramLink}" target="_blank">start a conversation</a></div>
           </div>`,
       }}
     />
