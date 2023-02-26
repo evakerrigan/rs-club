@@ -2,6 +2,7 @@ export interface IUserProfile {
   name: string;
   gender: 'male' | 'female';
   city: string;
+  country: string;
   cources: string[];
   technologies: string[];
 }

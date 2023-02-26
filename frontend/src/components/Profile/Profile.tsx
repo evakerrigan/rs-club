@@ -1,5 +1,6 @@
 import './Profile.scss';
 import { Button, Checkbox, Col, Form, Input, Select } from 'antd';
+
 import { IUser, IOption, IUserProfile } from '../../types/Types';
 import { BASE_URL, courcesList, interestsList, technologiesList } from '../Constants/Constants';
 
@@ -27,9 +28,27 @@ function CreateCheckbox(list: IOption[] = []) {
   );
 }
 
+async function getCoordsByCityAndCountry(city: string, country: string) {
+  const url = `https://nominatim.openstreetmap.org/search?q=${city},${country}&format=json&limit=1`;
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (!data || data.length === 0) {
+    throw new Error('No coordinates found for this city and country');
+  }
+
+  const { lat, lon } = data[0];
+  console.log('coords :>> ', { lat, lon });
+  return { lat: Number(lat), lon: Number(lon) };
+}
+
 export function Profile({ id }: { id: string }) {
   const onFinish = (values: { user: IUserProfile }) => {
     const { user } = values;
+
+    getCoordsByCityAndCountry(user.city, user.country);
+    console.log('user :>> ', user);
 
     /* здесь нужно декодировать адресс в координаты [number, number] */
 
@@ -40,7 +59,7 @@ export function Profile({ id }: { id: string }) {
       // location: ,
       address: user.city,
     };
-    
+
     /*
     const updateUserData = async(data: Partial<IUser> )=>{
       try {
@@ -67,12 +86,18 @@ export function Profile({ id }: { id: string }) {
         validateMessages={validateMessages}
       >
         <Form.Item
-          name={['user', 'name']}
-          label='Name'
-          rules={[{ required: true }, { whitespace: true }, { min: 3 }]}
+          name={['user', 'telegramLink']}
+          label='Link to Telegram'
+          rules={[
+            { required: true },
+            {
+              pattern: /[a-zA-Z0-9_]{5,}$/,
+              message: 'Uncorrect link',
+            },
+          ]}
           hasFeedback
         >
-          <Input placeholder='Type your name' />
+          <Input placeholder='Type your telegram' addonBefore='https://t.me/' />
         </Form.Item>
         <Form.Item
           name={['user', 'gender']}
@@ -89,7 +114,20 @@ export function Profile({ id }: { id: string }) {
             ]}
           />
         </Form.Item>
-        <Form.Item name={['user', 'city']} label='City' rules={[{ required: true }]} hasFeedback>
+        <Form.Item
+          name={['user', 'country']}
+          label='Country'
+          rules={[{ required: true }, { min: 3 }]}
+          hasFeedback
+        >
+          <Input placeholder='Type your country' />
+        </Form.Item>
+        <Form.Item
+          name={['user', 'city']}
+          label='City'
+          rules={[{ required: true }, { min: 3 }]}
+          hasFeedback
+        >
           <Input placeholder='Type your city' />
         </Form.Item>
         <Form.Item
