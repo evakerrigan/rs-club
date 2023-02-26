@@ -1,15 +1,11 @@
 import './Profile.scss';
 import { Button, Checkbox, Col, Form, Input, Select } from 'antd';
-import { IUser, IOption } from '../../types/Types';
-import { courcesList, interestsList, technologiesList } from '../Constants/Constants';
+import { IUser, IOption, IUserProfile } from '../../types/Types';
+import { BASE_URL, courcesList, interestsList, technologiesList } from '../Constants/Constants';
+import { getCoordsByCityAndCountry } from '../../utils/getCoordsByCityAndCountry';
 
 const layout = {
   wrapperCol: { span: 50 },
-};
-
-const onFinish = (values: IUser) => {
-  // eslint-disable-next-line no-console
-  console.log(values);
 };
 
 const validateMessages = {
@@ -25,14 +21,45 @@ function CreateCheckbox(list: IOption[] = []) {
     <>
       {list.map((item) => (
         <Col key={item.key}>
-          <Checkbox value={item.value}>{item.value}</Checkbox>
+          <Checkbox value={item.key}>{item.value}</Checkbox>
         </Col>
       ))}
     </>
   );
 }
 
-export function Profile() {
+export function Profile({ id }: { id: string }) {
+  const onFinish = async (values: { user: IUserProfile }) => {
+    const { user } = values;
+
+    const { lat, lon } = await getCoordsByCityAndCountry(user.city, user.country);
+
+    const data: Partial<IUser> = {
+      courses: user.cources,
+      technology: user.technology,
+      gender: user.gender,
+      address: `${user.country} / ${user.city}`,
+      location: [lat, lon],
+      preferences: user.interests,
+      telegramLink: user.telegramLink,
+    };
+
+    const updateUserData = async (userData: Partial<IUser>) => {
+      try {
+        fetch(`${BASE_URL}/users/profile/${id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify(userData),
+        });
+      } catch (error) {
+        console.error('User update was not successful!');
+      }
+    };
+    updateUserData(data);
+  };
+
   return (
     <main className='main profile'>
       <Form
@@ -44,12 +71,18 @@ export function Profile() {
         validateMessages={validateMessages}
       >
         <Form.Item
-          name={['user', 'name']}
-          label='Name'
-          rules={[{ required: true }, { whitespace: true }, { min: 3 }]}
+          name={['user', 'telegramLink']}
+          label='Link to Telegram'
+          rules={[
+            { required: true },
+            {
+              pattern: /[a-zA-Z0-9_]{5,}$/,
+              message: 'Uncorrect link',
+            },
+          ]}
           hasFeedback
         >
-          <Input placeholder='Type your name' />
+          <Input placeholder='Type your telegram' addonBefore='https://t.me/' />
         </Form.Item>
         <Form.Item
           name={['user', 'gender']}
@@ -66,7 +99,20 @@ export function Profile() {
             ]}
           />
         </Form.Item>
-        <Form.Item name={['user', 'city']} label='City' rules={[{ required: true }]} hasFeedback>
+        <Form.Item
+          name={['user', 'country']}
+          label='Country'
+          rules={[{ required: true }, { min: 3 }]}
+          hasFeedback
+        >
+          <Input placeholder='Type your country' />
+        </Form.Item>
+        <Form.Item
+          name={['user', 'city']}
+          label='City'
+          rules={[{ required: true }, { min: 3 }]}
+          hasFeedback
+        >
           <Input placeholder='Type your city' />
         </Form.Item>
         <Form.Item

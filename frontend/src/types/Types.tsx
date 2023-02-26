@@ -1,3 +1,14 @@
+export interface IUserProfile {
+  telegramLink: string;
+  gender: 'male' | 'female';
+  city: string;
+  country: string;
+  location: number[];
+  cources: string[];
+  technology: string[];
+  interests: string[];
+}
+
 export interface userInfoFromBD {
   name: string;
   avatar: string;
@@ -22,8 +33,7 @@ export interface Preference {
 }
 export interface IUser {
   githubName: string;
-  firstName: string;
-  lastName: string;
+  telegramLink?: string;
   gender: 'male' | 'female';
   profilePicture?: string;
   address?: string;
@@ -32,7 +42,12 @@ export interface IUser {
   signupDate: Date;
   lastActivity: Date;
   status: 'active' | 'inactive';
-  preferences: Preference[];
+  preferences: string[];
   technology: string[];
   courses: string[];
+}
+
+export interface IAuthorizationResponse {
+  statusCode: number;
+  message: string;
 }

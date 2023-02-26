@@ -1,9 +1,10 @@
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { IUser, userInfoFromBD } from '../../types/Types';
 import { FiltersRender } from '../Filters/Filters';
+import { BASE_URL } from '../Constants/Constants';
 import './Map.scss';
-import { userInfoFromBD } from '../../types/Types';
 
 function CreatePlacemarks(userList: userInfoFromBD[] = []) {
   return (
@@ -34,8 +35,7 @@ function CreatePlacemarks(userList: userInfoFromBD[] = []) {
 }
 
 export function MyMap() {
-  const [users, setUsers] = useState([]);
-
+  const [users, setUsers] = useState<IUser[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const stack = searchParams.get('stack');
@@ -50,27 +50,31 @@ export function MyMap() {
     setSearchParams({});
   };
   const onFinish = () => {
-    const createPrefParams = JSON.parse(localStorage.getItem('pref') || '[]');
-    const createStackParams = JSON.parse(localStorage.getItem('stack') || '[]');
-    const createCourcesParams = JSON.parse(localStorage.getItem('cources') || '[]');
+    const createPrefParams: string[] = JSON.parse(localStorage.getItem('pref') || '[]');
+    const createStackParams: string[] = JSON.parse(localStorage.getItem('stack') || '[]');
+    const createCourcesParams: string[] = JSON.parse(localStorage.getItem('cources') || '[]');
     const query = {
       stack: createStackParams,
       pref: createPrefParams,
       cources: createCourcesParams,
     };
-    setSearchParams(Object.fromEntries(Object.entries(query).filter((e) => e[1])));
+    const filter = Object.entries(query)
+      .filter((e) => e[1].length > 0)
+      .map(([key, value]) => [key, value.join(',')]);
+
+    setSearchParams(Object.fromEntries(filter));
   };
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const BASE_URL = 'http://localhost:8000/api/users?';
+        const USERS_URL = `${BASE_URL}/users?`;
         const query: string[] = [];
         if (stack) query.push(`stack=${stack}`);
         if (pref) query.push(`pref=${pref}`);
         if (cource) query.push(`cources=${pref}`);
 
-        const response = await fetch(BASE_URL + query.join('&'));
+        const response = await fetch(USERS_URL + query.join('&'));
         const data = await response.json();
         setUsers(data.items);
       } catch (error) {

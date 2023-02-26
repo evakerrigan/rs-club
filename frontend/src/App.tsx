@@ -1,5 +1,5 @@
 import './App.scss';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
@@ -8,57 +8,48 @@ import { NotFound } from './components/NotFound/NotFound';
 import { Profile } from './components/Profile/Profile';
 // import { Main } from './components/Main/Main';
 import { MyMap } from './components/MyMap/MyMap';
+import { BASE_URL } from './components/Constants/Constants';
+import { IUser } from './types/Types';
+import { getCookie } from './utils/getCookie';
 
 function App() {
+  const [user, setUser] = useState<IUser>();
 
-  const arrCookies = document.cookie.split(';');
-
-  let nameUserCookie = arrCookies.find((item) => item.startsWith('userName='));
-  let tokenCookie = arrCookies.find((item) => item.startsWith('rsAccessToken='));
-
-  if (nameUserCookie) {
-    nameUserCookie = nameUserCookie.slice(9);
-    console.log('nameUserCookie = ', nameUserCookie);
-  };
-  if (tokenCookie) {
-    tokenCookie = tokenCookie.slice(14);
-    console.log('tokenCookie = ', tokenCookie);
-  }
-
-  let isAuthenticated: boolean;
-
-  if (tokenCookie) {
-    isAuthenticated = true;
-    console.log('isAuthenticated = ', isAuthenticated);
-
-    // вот тут должен пойти запрос в бд, поиск по пользователям,
-    // у кого такой токен, если токен найден, то вернуть userName
-
-  } else {
-    isAuthenticated = false;
-    console.log('isAuthenticated = ', isAuthenticated);
-  }
+  const userId = getCookie('userId');
+  const userName = getCookie('userName');
+  useEffect(() => {
+    async function getUser() {
+      if(userId){
+        try {
+          const response = await fetch(`${BASE_URL}/users/${userId}`);
+          const data = await response.json();
+          setUser(data);
+        } catch (error) {
+          console.error('User get request failed!')
+        }
+      }
+    }
+    getUser();
+  }, [userId]);
 
   return (
     <section className='App'>
+      <Header
+        isAuthenticated={Boolean(user)}
+        userAvatar={user?.profilePicture || ''}
+        userName={userName || ''}
+      />
 
-      <Header isAuthenticated={isAuthenticated} />
-
-      {
-        isAuthenticated === true ?
-
-          <Routes>
-
-            <Route path='/' element={<MyMap />} />
-            <Route path='/messages' element={<Messages />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/*' element={<NotFound />} />
-
-          </Routes>
-
-          : <main className='main bg' />
-      }
-
+      {user ? (
+        <Routes>
+          <Route path='/' element={<MyMap />} />
+          <Route path='/messages' element={<Messages />} />
+          <Route path='/profile' element={<Profile id={userId} />} />
+          <Route path='/*' element={<NotFound />} />
+        </Routes>
+      ) : (
+        <main className='main bg' />
+      )}
 
       <Footer />
     </section>
