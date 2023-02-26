@@ -17,7 +17,7 @@ export class User {
   @Prop()
   githubName: string;
   @Prop()
-  name: string;
+  telegramLink?: string;
   @Prop()
   profilePicture?: string;
   @Prop()
