@@ -1,35 +1,31 @@
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { IUser, userInfoFromBD } from '../../types/Types';
+import { IUser } from '../../types/Types';
 import { FiltersRender } from '../Filters/Filters';
 import { BASE_URL } from '../Constants/Constants';
 import './Map.scss';
 
-function CreatePlacemarks(userList: userInfoFromBD[] = []) {
+function CreatePlacemarks({ githubName, location, profilePicture, telegramLink }: IUser) {
   return (
-    <>
-      {userList.map((userInfo) => (
-        <Placemark
-          key={userInfo.name}
-          geometry={userInfo.coords}
-          options={{
-            iconLayout: 'default#image',
-            iconImageHref: userInfo.avatar,
-            iconImageSize: [50, 50],
-            iconImageOffset: [-15, -15],
-          }}
-          properties={{
-            hintContent: `<b> ${userInfo.name} </b>`,
-            balloonContent: `<div class="balloon-container">
-          <h2>${userInfo.name}</h2>
-          <img alt="avatar" src=${userInfo.avatar} />
-          <div><a href=${userInfo.telegramm} target="_blank">start a conversation</a></div>
+    <Placemark
+      key={githubName}
+      geometry={location}
+      options={{
+        iconLayout: 'default#image',
+        iconImageHref: profilePicture,
+        iconImageSize: [50, 50],
+        iconImageOffset: [-15, -15],
+      }}
+      properties={{
+        hintContent: `<b> ${githubName} </b>`,
+        balloonContent: `<div class="balloon-container">
+          <h2>${githubName}</h2>
+          <img alt="avatar" src=${profilePicture} />
+          <div><a href=${telegramLink} target="_blank">start a conversation</a></div>
           </div>`,
-          }}
-        />
-      ))}
-    </>
+      }}
+    />
   );
 }
 
@@ -40,9 +36,6 @@ export function MyMap() {
   const stack = searchParams.get('stack');
   const pref = searchParams.get('pref');
   const cource = searchParams.get('cources');
-
-  // const getCoordinates = () =>
-  //   users.map((item: IUser) => item.location).filter((item) => item?.length);
 
   const resetParamsAndLocalStorage = () => {
     localStorage.clear();
@@ -83,28 +76,6 @@ export function MyMap() {
     getUsers();
   }, [cource, pref, stack]);
 
-  const userBase = [
-    {
-      name: 'User',
-      avatar: 'https://game-assets.swgoh.gg/tex.charui_admiralraddus.png',
-      coords: [55.847, 37.692],
-      telegramm: 'https://t.me/friendswgoh',
-    },
-    {
-      name: 'huyser',
-      avatar: 'https://game-assets.swgoh.gg/tex.charui_trooperclone_arc.png',
-      coords: [54.847973, 33.692542],
-      telegramm: 'https://t.me/friendswgoh',
-    },
-    {
-      name: 'loser',
-      avatar: 'https://game-assets.swgoh.gg/tex.charui_chewbacca_ot.png',
-      coords: [50.847973, 30.692542],
-      telegramm: 'https://t.me/friendswgoh',
-    },
-  ];
-  // console.log('users :>> ', users);
-
   return (
     <div className='map-container'>
       <FiltersRender onFinish={onFinish} resetParamsAndLocalStorage={resetParamsAndLocalStorage} />
@@ -123,10 +94,11 @@ export function MyMap() {
               groupByCoordinates: false,
             }}
           >
-            {/* {getCoordinates().map((coordinates, index) => (
-              <Placemark key={index} geometry={coordinates} />
-            ))} */}
-            {CreatePlacemarks(userBase)}
+            {users &&
+              users.map((user: IUser) => {
+                if (!user.location?.length) return null;
+                return CreatePlacemarks(user);
+              })}
           </Clusterer>
         </Map>
       </YMaps>
