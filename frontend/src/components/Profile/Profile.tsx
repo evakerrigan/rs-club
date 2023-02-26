@@ -37,28 +37,26 @@ async function getCoordsByCityAndCountry(city: string, country: string) {
   if (!data || data.length === 0) {
     throw new Error('No coordinates found for this city and country');
   }
-
   const { lat, lon } = data[0];
-  console.log('coords :>> ', { lat, lon });
   return { lat: Number(lat), lon: Number(lon) };
 }
 
 export function Profile({ id }: { id: string }) {
-  const onFinish = (values: { user: IUserProfile }) => {
+  const onFinish = async (values: { user: IUserProfile }) => {
     const { user } = values;
 
-    getCoordsByCityAndCountry(user.city, user.country);
-    console.log('user :>> ', user);
-
-    /* здесь нужно декодировать адресс в координаты [number, number] */
+    const { lat, lon } = await getCoordsByCityAndCountry(user.city, user.country);
 
     const data: Partial<IUser> = {
       courses: user.cources,
-      technology: user.technologies,
+      technology: user.technology,
       gender: user.gender,
-      // location: ,
       address: user.city,
+      location: [lat, lon],
     };
+
+    console.log('user :>> ', user);
+    console.log('data :>> ', data);
 
     /*
     const updateUserData = async(data: Partial<IUser> )=>{
@@ -74,7 +72,6 @@ export function Profile({ id }: { id: string }) {
     updateUserData(data)
     */
   };
-
   return (
     <main className='main profile'>
       <Form
