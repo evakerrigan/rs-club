@@ -37,7 +37,7 @@ function CreateCheckbox(query: string, list: IOption[] = []) {
             onClick={ChangeStyle}
             checked={isCheckedFromLocalStorage(query, item.key)}
           >
-            {item.value}
+            {item.label}
           </Checkbox>
         </div>
       ))}

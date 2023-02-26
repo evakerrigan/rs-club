@@ -21,7 +21,6 @@ function CreatePlacemarks(userList: userInfoFromBD[] = []) {
           }}
           properties={{
             hintContent: `<b> ${userInfo.name} </b>`,
-            // создаём пустой элемент с заданными размерами
             balloonContent: `<div class="balloon-container">
           <h2>${userInfo.name}</h2>
           <img alt="avatar" src=${userInfo.avatar} />
@@ -104,6 +103,7 @@ export function MyMap() {
       telegramm: 'https://t.me/friendswgoh',
     },
   ];
+  // console.log('users :>> ', users);
 
   return (
     <div className='map-container'>
