@@ -9,13 +9,6 @@ export interface IUserProfile {
   interests: string[];
 }
 
-export interface userInfoFromBD {
-  name: string;
-  avatar: string;
-  coords: number[];
-  telegramm: string;
-}
-
 export interface IOption {
   value?: string;
   label: string;
