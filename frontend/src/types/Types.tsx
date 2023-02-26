@@ -2,8 +2,10 @@ export interface IUserProfile {
   name: string;
   gender: 'male' | 'female';
   city: string;
+  country: string;
+  location: number[];
   cources: string[];
-  technologies: string[];
+  technology: string[];
 }
 export interface IOption {
   value: string;
