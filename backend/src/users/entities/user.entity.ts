@@ -5,7 +5,7 @@ export class Preference {
 }
 export class User {
   githubName: string;
-  name: string;
+  telegramLink: string;
   gender: 'male' | 'female';
   profilePicture?: string;
   address?: string;

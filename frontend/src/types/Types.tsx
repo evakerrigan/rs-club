@@ -1,10 +1,14 @@
 export interface IUserProfile {
-  name: string;
+  telegramLink: string;
   gender: 'male' | 'female';
   city: string;
+  country: string;
+  location: number[];
   cources: string[];
-  technologies: string[];
+  technology: string[];
+  interests: string[];
 }
+
 export interface IOption {
   value: string;
   key: string;
@@ -22,8 +26,7 @@ export interface Preference {
 }
 export interface IUser {
   githubName: string;
-  firstName: string;
-  lastName: string;
+  telegramLink?: string;
   gender: 'male' | 'female';
   profilePicture?: string;
   address?: string;
@@ -32,7 +35,7 @@ export interface IUser {
   signupDate: Date;
   lastActivity: Date;
   status: 'active' | 'inactive';
-  preferences: Preference[];
+  preferences: string[];
   technology: string[];
   courses: string[];
 }
