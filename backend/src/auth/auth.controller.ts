@@ -47,15 +47,15 @@ export class AuthController {
     const userID = id ? String(id).valueOf() : String(findUser?._id).valueOf();
 
     res.cookie('rsAccessToken', rsAccessToken, {
-      expires: new Date(new Date().getTime() + 30 * 1000),
+      expires: new Date(new Date().getTime() + 86400 * 1000),
       sameSite: 'strict',
       httpOnly: false,
     });
     res.cookie('userName', githubName, {
-      expires: new Date(new Date().getTime() + 30 * 1000),
+      expires: new Date(new Date().getTime() + 86400 * 1000),
     });
     res.cookie('userId', userID, {
-      expires: new Date(new Date().getTime() + 30 * 1000),
+      expires: new Date(new Date().getTime() + 86400 * 1000),
     });
 
     res.redirect(302, 'http://localhost:3000');
