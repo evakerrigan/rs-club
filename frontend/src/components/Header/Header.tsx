@@ -40,9 +40,9 @@ export function Header({ isAuthenticated, userName = 'User', userAvatar }: Props
     <header className='header'>
       <Row align='middle'>
         <Col span={8}>
-          <nav className='nav'>
+          {/* <nav className='nav'>
             <NavLink to='/messages'>Messages</NavLink>
-          </nav>
+          </nav> */}
         </Col>
         <Col span={8}>
           <NavLink to='/'>RS CLUB</NavLink>
