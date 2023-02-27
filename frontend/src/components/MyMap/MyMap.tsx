@@ -6,6 +6,29 @@ import { FiltersRender } from '../Filters/Filters';
 import { BASE_URL } from '../Constants/Constants';
 import './Map.scss';
 
+function CreatePlacemarks({ githubName, location, profilePicture, telegramLink }: IUser) {
+  return (
+    <Placemark
+      key={githubName}
+      geometry={location}
+      options={{
+        iconLayout: 'default#image',
+        iconImageHref: profilePicture,
+        iconImageSize: [50, 50],
+        iconImageOffset: [-15, -15],
+      }}
+      properties={{
+        hintContent: `<b> ${githubName} </b>`,
+        balloonContent: `<div class="balloon-container">
+          <h2>${githubName}</h2>
+          <img alt="avatar" src=${profilePicture} />
+          <div><a href= "https://t.me/${telegramLink}" target="_blank">start a conversation</a></div>
+          </div>`,
+      }}
+    />
+  );
+}
+
 export function MyMap() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -62,6 +85,7 @@ export function MyMap() {
             center: [55.751574, 37.573856],
             zoom: 5,
           }}
+          modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
           className='map'
         >
           <Clusterer
@@ -73,7 +97,7 @@ export function MyMap() {
             {users &&
               users.map((user: IUser) => {
                 if (!user.location?.length) return null;
-                return <Placemark key={user.githubName} geometry={user.location ?? []} />;
+                return CreatePlacemarks(user);
               })}
           </Clusterer>
         </Map>

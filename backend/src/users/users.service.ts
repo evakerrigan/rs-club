@@ -47,7 +47,10 @@ export class UsersService {
     return await this.UserModel.find({ status: 'active' });
   }
 
-  async findByFilter(filterDto: QueryParamDto): Promise<UserDocument[]> {
+  async findByFilter(filterDto: QueryParamDto): Promise<{
+    items: UserDocument[];
+    count: number;
+  }> {
     const { stack, courses, pref } = filterDto;
     const query: {
       [key: string]: object;
@@ -64,7 +67,12 @@ export class UsersService {
     if (pref) query.pref = { $all: pref.split(',') };
     if (stack) query.technology = { $all: stack.split(',') };
     if (courses) query.courses = { $all: courses.split(',') };
-    return await this.UserModel.find(query);
+    const items = await this.UserModel.find(query);
+    const count = await this.UserModel.count();
+    return {
+      items,
+      count,
+    };
   }
 
   /* ПОДКЛЮЧИТЬ GUARD */

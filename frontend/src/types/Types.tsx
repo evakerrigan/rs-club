@@ -10,7 +10,8 @@ export interface IUserProfile {
 }
 
 export interface IOption {
-  value: string;
+  value?: string;
+  label: string;
   key: string;
 }
 
