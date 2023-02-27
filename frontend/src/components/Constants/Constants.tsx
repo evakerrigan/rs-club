@@ -1,5 +1,5 @@
 export const interestsList = [
-  { key: '_city', value: 'in my city', label: 'in my city' },
+  { key: '_mentor', value: 'can be a mentor', label: 'can be a mentor' },
   { key: '_friends', value: 'looking for friends', label: 'looking for friends' },
   { key: '_action', value: 'likes to move', label: 'likes to move' },
   { key: '_chat', value: 'open to communicate', label: 'open to communicate' },
