@@ -13,7 +13,7 @@ export const interestsList = [
 
 export const technologiesList = [
   { key: '_js', label: 'JavaScript', value: '_js' },
-  { key: '_phyton', label: 'Phyton', value: '_phyton' },
+  { key: '_python', label: 'Python', value: '_python' },
   { key: '_ts', label: 'TypeScript', value: '_ts' },
   { key: '_node', label: 'Node.js', value: '_node' },
   { key: '_angular', label: 'Angular', value: '_angular' },
