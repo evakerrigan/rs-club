@@ -97,7 +97,7 @@ export function Profile({ id }: { id: string }) {
             style={{ color: 'white' }}
             options={[
               { value: 'male', label: 'male' },
-              { value: 'famale', label: 'famale' },
+              { value: 'female', label: 'female' },
             ]}
           />
         </Form.Item>
