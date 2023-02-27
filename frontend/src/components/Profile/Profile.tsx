@@ -3,6 +3,7 @@ import { Button, Checkbox, Col, Form, Input, Select } from 'antd';
 import { IUser, IOption, IUserProfile } from '../../types/Types';
 import { BASE_URL, courcesList, interestsList, technologiesList } from '../Constants/Constants';
 import { getCoordsByCityAndCountry } from '../../utils/getCoordsByCityAndCountry';
+import { getRandomInt } from '../../utils/getRandomInt';
 
 const layout = {
   wrapperCol: { span: 50 },
@@ -33,17 +34,18 @@ export function Profile({ id }: { id: string }) {
     const { user } = values;
 
     const { lat, lon } = await getCoordsByCityAndCountry(user.city, user.country);
-
+    const updLat = Number(String(lat) + String(getRandomInt(0, 999)))
+    const updLon = Number(String(lon) + String(getRandomInt(0, 999)))
     const data: Partial<IUser> = {
       courses: user.cources,
       technology: user.technology,
       gender: user.gender,
       address: `${user.country} / ${user.city}`,
-      location: [lat, lon],
+      location: [updLat, updLon],
       preferences: user.interests,
       telegramLink: user.telegramLink,
     };
-
+    
     const updateUserData = async (userData: Partial<IUser>) => {
       try {
         fetch(`${BASE_URL}/users/profile/${id}`, {
