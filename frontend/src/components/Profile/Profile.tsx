@@ -34,8 +34,8 @@ export function Profile({ id }: { id: string }) {
     const { user } = values;
 
     const { lat, lon } = await getCoordsByCityAndCountry(user.city, user.country);
-    const updLat = Number(String(lat) + String(getRandomInt(0, 999)))
-    const updLon = Number(String(lon) + String(getRandomInt(0, 999)))
+    const updLat = Number(String(lat).substring(0, 5) + String(getRandomInt(0, 999)));
+    const updLon = Number(String(lon).substring(0, 5) + String(getRandomInt(0, 999)));
     const data: Partial<IUser> = {
       courses: user.cources,
       technology: user.technology,
@@ -45,13 +45,13 @@ export function Profile({ id }: { id: string }) {
       preferences: user.interests,
       telegramLink: user.telegramLink,
     };
-    
+
     const updateUserData = async (userData: Partial<IUser>) => {
       try {
         fetch(`${BASE_URL}/users/profile/${id}`, {
           method: 'PATCH',
           headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json;charset=utf-8',
           },
           body: JSON.stringify(userData),
         });
