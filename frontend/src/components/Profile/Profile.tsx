@@ -33,10 +33,9 @@ export function Profile({ id }: { id: string }) {
   const [form] = Form.useForm();
   const onFinish = async (values: { user: IUserProfile }) => {
     const { user } = values;
-
     const { lat, lon } = await getCoordsByCityAndCountry(user.city, user.country);
-    const updLat = Number(String(lat) + String(getRandomInt(0, 999)));
-    const updLon = Number(String(lon) + String(getRandomInt(0, 999)));
+    const updLat = Number(String(lat).substring(0, 5) + String(getRandomInt(0, 999)));
+    const updLon = Number(String(lon).substring(0, 5) + String(getRandomInt(0, 999)));
     const data: Partial<IUser> = {
       courses: user.cources,
       technology: user.technology,
