@@ -1,4 +1,16 @@
 .footer {
+  position: fixed;
+  bottom: 0;
   padding: 5px;
-  height: 11vh;
+  height: 70px;
+  display: flex;
+  width: 100%;
+  .ant-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  img {
+    height: 40px;
+  }
 }

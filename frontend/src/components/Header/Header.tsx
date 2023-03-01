@@ -29,9 +29,8 @@ export function Header({ isAuthenticated, userName = 'User', userAvatar }: Props
           window.location.href = `${BASE_URL}/auth/`;
         }
       } catch (error) {
-        console.error('Authorization failed!')
+        console.error('Authorization failed!');
       }
-
     };
     getUser();
   };
@@ -40,12 +39,13 @@ export function Header({ isAuthenticated, userName = 'User', userAvatar }: Props
     <header className='header'>
       <Row align='middle'>
         <Col span={8}>
+          {' '}
+          <NavLink to='/'>RS CLUB</NavLink>
+        </Col>
+        <Col span={8}>
           {/* <nav className='nav'>
             <NavLink to='/messages'>Messages</NavLink>
           </nav> */}
-        </Col>
-        <Col span={8}>
-          <NavLink to='/'>RS CLUB</NavLink>
         </Col>
         <Col span={8}>
           {isAuthenticated === false ? (

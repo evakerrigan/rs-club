@@ -8,10 +8,10 @@ export function Footer() {
       <Row align='middle'>
         <Col span={8}>
           <a href='https://rs.school/js/' className='footer__link' target='_blank' rel='noreferrer'>
-            RS School
+            <img src='https://rs.school/images/rs_school_js.svg' alt='rs' />
           </a>
         </Col>
-        <Col span={8}>2023</Col>
+        <Col span={8}>©2023</Col>
         <Col span={8}>
           <Space direction='vertical'>
             <a
@@ -28,7 +28,6 @@ export function Footer() {
               target='_blank'
               rel='noreferrer'
             >
-              {' '}
               <GithubOutlined /> evakerrigan
             </a>
             <a
@@ -37,7 +36,6 @@ export function Footer() {
               target='_blank'
               rel='noreferrer'
             >
-              {' '}
               <GithubOutlined /> osipikav
             </a>
           </Space>

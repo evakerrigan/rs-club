@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form } from 'antd';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
-
 import './Filters.scss';
+import { useState } from 'react';
 import { courcesList, interestsList, technologiesList } from '../Constants/Constants';
 import { FiltersData, IOption } from '../../types/Types';
 
@@ -52,34 +52,45 @@ export function FiltersRender({
   onFinish: (value: FiltersData) => void;
   resetParamsAndLocalStorage: () => void;
 }) {
+  const [isFiltersVisible, setIsFiltersVisible] = useState(true);
+  const handleHideFilters = () => {
+    setIsFiltersVisible((prevIsVisible) => !prevIsVisible);
+  };
+
   return (
-    <Form className='filters' onFinish={onFinish}>
-      <Form.Item name='interests'>
-        <Checkbox.Group className='filter-item' onChange={(data) => onChange(data, 'pref')}>
-          <h2 className='filter-title'>Interests</h2>
-          {CreateCheckbox('pref', interestsList)}
-        </Checkbox.Group>
-      </Form.Item>
-      <Form.Item name='technologies'>
-        <Checkbox.Group className='filter-item' onChange={(data) => onChange(data, 'stack')}>
-          <h2 className='filter-title'>Technologies</h2>
-          {CreateCheckbox('stack', technologiesList)}
-        </Checkbox.Group>
-      </Form.Item>
-      <Form.Item name='cources'>
-        <Checkbox.Group className='filter-item' onChange={(data) => onChange(data, 'cources')}>
-          <h2 className='filter-title'>Cources</h2>
-          {CreateCheckbox('cources', courcesList)}
-        </Checkbox.Group>
-      </Form.Item>
-      <div className='filters__buttons'>
-        <Button type='primary' htmlType='submit' size='large' block>
-          Confirm
-        </Button>
-        <Button type='primary' onClick={resetParamsAndLocalStorage} size='large' block>
-          Reset
-        </Button>
-      </div>
-    </Form>
+    <div className={`filters ${isFiltersVisible ? '' : 'hidden'}`}>
+      <Form onFinish={onFinish}>
+        <Form.Item name='interests'>
+          <Checkbox.Group className='filter-item' onChange={(data) => onChange(data, 'pref')}>
+            <h2 className='filter-title'>Interests</h2>
+            {CreateCheckbox('pref', interestsList)}
+          </Checkbox.Group>
+        </Form.Item>
+        <Form.Item name='technologies'>
+          <Checkbox.Group className='filter-item' onChange={(data) => onChange(data, 'stack')}>
+            <h2 className='filter-title'>Technologies</h2>
+            {CreateCheckbox('stack', technologiesList)}
+          </Checkbox.Group>
+        </Form.Item>
+        <Form.Item name='cources'>
+          <Checkbox.Group className='filter-item' onChange={(data) => onChange(data, 'cources')}>
+            <h2 className='filter-title'>Cources</h2>
+            {CreateCheckbox('cources', courcesList)}
+          </Checkbox.Group>
+        </Form.Item>
+        <div className='filters__buttons'>
+          <Button type='primary' htmlType='submit'>
+            Confirm
+          </Button>
+          <Button type='primary' onClick={resetParamsAndLocalStorage}>
+            Reset
+          </Button>
+        </div>
+      </Form>
+
+      <Button className='button-hider' onClick={handleHideFilters}>
+        {isFiltersVisible ? '<' : '>'}
+      </Button>
+    </div>
   );
 }
