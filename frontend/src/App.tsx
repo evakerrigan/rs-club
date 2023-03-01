@@ -6,7 +6,6 @@ import { Footer } from './components/Footer/Footer';
 import { Messages } from './components/Messages/Messages';
 import { NotFound } from './components/NotFound/NotFound';
 import { Profile } from './components/Profile/Profile';
-// import { Main } from './components/Main/Main';
 import { MyMap } from './components/MyMap/MyMap';
 import { BASE_URL } from './components/Constants/Constants';
 import { IUser } from './types/Types';
@@ -19,13 +18,13 @@ function App() {
   const userName = getCookie('userName');
   useEffect(() => {
     async function getUser() {
-      if(userId){
+      if (userId) {
         try {
           const response = await fetch(`${BASE_URL}/users/${userId}`);
           const data = await response.json();
           setUser(data);
         } catch (error) {
-          console.error('User get request failed!')
+          console.error('User get request failed!');
         }
       }
     }
