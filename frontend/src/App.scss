@@ -1,0 +1,17 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+  a {
+    color: white;
+  }
+}
+.bg {
+  background-image: url(./assets/images/map-img3.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

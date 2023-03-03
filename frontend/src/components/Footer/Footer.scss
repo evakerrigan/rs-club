@@ -1,0 +1,15 @@
+.footer {
+  padding: 5px;
+  height: 70px;
+  display: flex;
+  width: 100%;
+  background-color: #282c34;
+  .ant-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  img {
+    height: 40px;
+  }
+}
