@@ -1,5 +1,5 @@
 import './Profile.scss';
-import { Button, Checkbox, Col, Form, Input, Select } from 'antd';
+import { Button, Checkbox, Col, Form, Input, message, Select } from 'antd';
 import { IUser, IOption, IUserProfile } from '../../types/Types';
 import { BASE_URL, courcesList, interestsList, technologiesList } from '../Constants/Constants';
 import { getCoordsByCityAndCountry } from '../../utils/getCoordsByCityAndCountry';
@@ -30,9 +30,9 @@ function CreateCheckbox(list: IOption[] = []) {
 }
 
 export function Profile({ id }: { id: string }) {
+  const [form] = Form.useForm();
   const onFinish = async (values: { user: IUserProfile }) => {
     const { user } = values;
-
     const { lat, lon } = await getCoordsByCityAndCountry(user.city, user.country);
     const updLat = Number(String(lat).substring(0, 5) + String(getRandomInt(0, 999)));
     const updLon = Number(String(lon).substring(0, 5) + String(getRandomInt(0, 999)));
@@ -60,6 +60,8 @@ export function Profile({ id }: { id: string }) {
       }
     };
     updateUserData(data);
+    message.success('Form data submitted successfully!');
+    form.resetFields();
   };
 
   return (
@@ -69,6 +71,7 @@ export function Profile({ id }: { id: string }) {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...layout}
         name='profile'
+        form={form}
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
