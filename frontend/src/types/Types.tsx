@@ -39,6 +39,7 @@ export interface IUser {
   preferences: string[];
   technology: string[];
   courses: string[];
+  _id: string;
 }
 
 export interface IAuthorizationResponse {
