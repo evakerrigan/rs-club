@@ -3,8 +3,8 @@ import { Row, Col, Avatar, Space, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
 import { IAuthorizationResponse } from '../../types/Types';
 import { getCookie } from '../../utils/getCookie';
-import { BASE_URL } from '../Constants/Constants';
 import './Header.scss';
+import { BASE_URL } from '../../constants';
 
 type Props = {
   isAuthenticated: boolean;
@@ -53,7 +53,7 @@ export function Header({ isAuthenticated, userName = 'User', userAvatar }: Props
           ) : (
             <Space>
               <span> Hello, {userName}! </span>
-              <NavLink to='/profile'>
+              <NavLink to='/settings'>
                 <Avatar
                   className='avatar'
                   size={42}

@@ -2,7 +2,7 @@ import { Button, Checkbox, Form } from 'antd';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import './Filters.scss';
 import { useState } from 'react';
-import { courcesList, interestsList, technologiesList } from '../Constants/Constants';
+import { courcesList, interestsList, technologiesList } from '../../constants';
 import { FiltersData, IOption } from '../../types/Types';
 
 const onChange = (checkedValues: CheckboxValueType[], query: string) => {

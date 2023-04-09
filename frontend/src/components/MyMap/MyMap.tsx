@@ -1,12 +1,15 @@
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { NavigateFunction, useNavigate, useSearchParams } from 'react-router-dom';
 import { IUser } from '../../types/Types';
 import { FiltersRender } from '../Filters/Filters';
-import { BASE_URL } from '../Constants/Constants';
+import { BASE_URL } from '../../constants';
 import './Map.scss';
 
-function CreatePlacemarks({ githubName, location, profilePicture, telegramLink }: IUser) {
+function CreatePlacemarks(
+  navigate: NavigateFunction, // колбек для смены локации, альтернативные методы не работали
+  { githubName, location, profilePicture, telegramLink, _id }: IUser,
+) {
   return (
     <Placemark
       key={githubName}
@@ -17,14 +20,15 @@ function CreatePlacemarks({ githubName, location, profilePicture, telegramLink }
         iconImageSize: [50, 50],
         iconImageOffset: [-15, -15],
       }}
-      properties={{
+      onClick={() => navigate(`/profile/${_id}`)}
+/*       properties={{
         hintContent: `<b> ${githubName} </b>`,
         balloonContent: `<div class="balloon-container">
           <h2>${githubName}</h2>
-          <img alt="avatar" src=${profilePicture} />
-          <div><a href= "https://t.me/${telegramLink}" target="_blank">start a conversation</a></div>
+          <img alt="avatar" src=${profilePicture} data-id='${_id}' />
+          <div><a href="https://t.me/${telegramLink}" target="_blank">start a conversation</a></div>
           </div>`,
-      }}
+      }} */
     />
   );
 }
@@ -32,7 +36,7 @@ function CreatePlacemarks({ githubName, location, profilePicture, telegramLink }
 export function MyMap() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const navigate = useNavigate();
   const stack = searchParams.get('stack');
   const pref = searchParams.get('pref');
   const cource = searchParams.get('cources');
@@ -97,7 +101,7 @@ export function MyMap() {
             {users &&
               users.map((user: IUser) => {
                 if (!user.location?.length) return null;
-                return CreatePlacemarks(user);
+                return CreatePlacemarks(navigate, user);
               })}
           </Clusterer>
         </Map>
